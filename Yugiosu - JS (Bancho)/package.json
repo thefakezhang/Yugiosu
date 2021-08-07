@@ -1,0 +1,23 @@
+{
+  "name": "yugiosu",
+  "version": "1.0.0",
+  "description": "osu bancho bot for the game yugiosu",
+  "main": "fuckme.js",
+  "scripts": {
+    "test": "start",
+    "start":"node fuckme.js"
+  },
+  
+  "keywords": [
+    "osu"
+  ],
+  "author": "fud",
+  "license": "ISC",
+  "dependencies": {
+    "bancho.js": "^0.9.7",
+    "chalk": "^4.1.1",
+    "fs": "0.0.1-security",
+    "nodesu": "^0.7.2",
+    "readline": "^1.3.0"
+  }
+}

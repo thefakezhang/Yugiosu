@@ -1,0 +1,15 @@
+figure out how PMs work with banchoBot
+hook the game API into the bot and test
+add a phase between map picks to draw cards and ask what cards the players want to play
+cards that are played should go into graveyard at the end of a map
+add commands to view information (your cardlist, your hand and graveyard)
+add in 1 card and try to get it working
+from the sound of it, some cards are going to require the parsing of the matchlog for data we can't get through listeners alone
+at the very end (if we somehow make it there) write a check for when bancho goes down
+before a map is started, kick out all players not part of a team
+CLEAN ALL PLAYER INPUTS!!!!!!!
+perhaps all effects need to have some sort of priority timing? cards like ID-30 require some sort of specific timing to be written in
+
+
+
+have all effects be accompanied with a single integer to denote the TURN timing of the effect (different from the micro timing BEFORE, AFTER, or THROUGHOUT)

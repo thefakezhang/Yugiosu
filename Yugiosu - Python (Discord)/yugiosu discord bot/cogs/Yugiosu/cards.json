@@ -1,0 +1,984 @@
+[
+    {
+        "id": 1,
+        "name": "Lights, Action! (S)",
+        "cardtype": "Spell",
+        "description": "All players must add HD for the next map. If this is already a HD map, then HD will be removed.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "modToggle":{
+                        "mod":["HD"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Harder, Stronger (S)",
+        "cardtype": "Spell",
+        "description": "All players must add HR for the next map. If this is already a HR map, then HR will be removed.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "modToggle":{
+                        "mod":["HR"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Lights, Action! (T)",
+        "cardtype": "Trap",
+        "description": "All players must add HD for the next map. If this is already a HD map, then HD will be removed.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "modToggle":{
+                        "mod":["HD"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Harder, Stronger (T)",
+        "cardtype": "Trap",
+        "description": "All players must add HR for the next map. If this is already a HR map, then HR will be removed.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "modToggle":{
+                        "mod":["HR"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Easy, Peasy",
+        "cardtype": "Spell",
+        "description": "All players must add EZ for the next map. If this is already a HR map, then remove HR and add EZ.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "modToggle":{
+                        "mod":["EZ"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Close my Eyes",
+        "cardtype": "Spell",
+        "description": "All players must add RX and FL for the next map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "modToggle":{
+                        "mod":["RX", "FL"]
+                    },
+                    "wincon":{
+                        "wincon":"v1"
+                    }
+                }
+        }
+    ]
+    },
+    {
+        "id": 7,
+        "name": "On Beat",
+        "cardtype": "Trap",
+        "description": "This map will be played with accuracy win condition.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "wincon":{
+                        "wincon":"accuracy"
+                    }
+                }
+        }
+    ]
+    },
+    {
+        "id": 8,
+        "name": "Combo Game",
+        "cardtype": "Trap",
+        "description": "This map will be played with combo win condition (sum the maximum combos of all players on a team).",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "wincon":{
+                        "wincon":"combo"
+                    }
+                }
+        }
+    ]
+    },
+    {
+        "id": 9,
+        "name": "Tag In!",
+        "cardtype": "Trap",
+        "description": "This map will be played on Tag team.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "wincon":{
+                        "wincon":"tag team"
+                    }
+                }
+        }
+    ]
+    },
+    {
+        "id": 10,
+        "name": "Too Good",
+        "cardtype": "Trap",
+        "description": "The top score from this map cannot play the next map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "ban":{
+                        "self":[{
+                            "keyword":"TOPSCORE",
+                            "duration":1
+                        }],
+                        "opponent":[]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "1v1 Me Bro",
+        "cardtype": "Trap",
+        "description": "This map will be played as a 1v1.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "teamSize":{
+                        "self":1,
+                        "opponent":1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Gang Up!",
+        "cardtype": "Trap",
+        "description": "Your opponent can only send 1 player in for this map. You will send in 3 players. Your team's score will be multiplied by 0.4 at the end. If your opponent wins, they may draw a card.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "teamSize":{
+                        "self":3,
+                        "opponent":1
+                    }
+                }
+            },
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "scoreMultiplier":{
+                        "self":[
+                            {
+                                "keyword":"ALL",
+                                "multiplier":0.4
+                            }
+                        ],
+                        "opponent":[
+                            {
+                                "keyword":"ALL",
+                                "multiplier":1
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Taunt",
+        "cardtype": "Trap",
+        "description": "Select a player from the opposing team. That player must play this map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"OPPONENT",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "forceMember":{
+                        "self":["CHOOSE"],
+                        "opponent":[]
+                    }
+                }    
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Counterspell",
+        "cardtype": "Trap",
+        "description": "Pick one spell and disable its effect.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"OPPONENT",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "counterSpell":{
+                        "count":1
+                    }
+                }    
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Jailbreak",
+        "cardtype": "Spell",
+        "description": "You may pick a map that was banned. The opposing team picks the next two maps.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "pickban":{
+
+                    },
+                    "changePickOrder":{
+                        "order":"110"
+                    }
+                }    
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Pay to Win",
+        "cardtype": "Cont. Spell",
+        "description": "You may discard a card to give your team a 15% boost in the next map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":-1,
+                "timing":"BEFORE",
+                "effect":{
+                    "comparator":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"DISCARD",
+                                "negation":false,
+                                "compare":"==",
+                                "value":1,
+                                "properties":[
+                                    {
+                                        "target":"SELF",
+                                        "turn":0,
+                                        "timing":"AFTER",
+                                        "effect":{
+                                            "scoreMultiplier":{
+                                                "self":[
+                                                    {
+                                                        "keyword":"ALL",
+                                                        "multiplier":1.15
+                                                    }
+                                                ],
+                                                "opponent":[]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }    
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Golden Goose",
+        "cardtype": "Gift Spell",
+        "description": "Pick a map (cannot be TB or a map that is banned/already picked). Until this map is picked by either team, your team has a 5% score boost.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":-1,
+                "timing":"AFTER",
+                "effect":{
+                    "scoreMultiplier":{
+                       "self":[
+                           {
+                                "keyword":"ALL",
+                                "multiplier":1.05
+                           }
+                        ],
+                        "opponent":[] 
+                    },
+                    "disableCondition":{
+                        "conditionals":[
+                            {
+                                "target":"EITHER",
+                                "keyword":"CARDMAPPICKED",
+                                "negation":false,
+                                "compare":"==",
+                                "value":1,
+                                "properties":[]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Star Player",
+        "cardtype": "Spell",
+        "description": "Both teams pick one player on their team. Those players gain a 50% boost for the next map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "scoreMultiplier":{
+                        "self":[
+                            {
+                                "keyword":"CHOOSE",
+                                "multiplier":1.5
+                            }
+                        ],
+                        "opponent":[
+                            {
+                                "keyword":"CHOOSE",
+                                "multiplier":1.5
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Nerfed Pot of Greed",
+        "cardtype": "Spell",
+        "description": "Draw two cards. Your opponent gets a 40% score boost for the next map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "draw":{
+                        "self":2,
+                        "opponent":0                        
+                    }
+                }
+            },
+            {
+                "target":"OPPONENT",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "scoreMultiplier":{
+                        "self":[],
+                        "opponent":[
+                            {
+                                "keyword":"ALL",
+                                "multiplier":1.4
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "name": "My Precious",
+        "cardtype": "Trap",
+        "description": "This map is now your team's next pick. The opponent's team must pick a different map.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"OPPONENT",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "repick":{
+                        "self":false,
+                        "opponent":true
+                    }
+                }
+            },
+            {
+                "target":"SELF",
+                "turn":1,
+                "timing":"BEFORE",
+                "effect":{
+                    "forceMap":{
+                        "keyword":"PREVMAP"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Sufficient Margin",
+        "cardtype": "Spell",
+        "description": "If you score at least 1.2x the score of the opposing team this map, the opposing team must discard 1 card.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"OPPONENT",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "comparator":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"SCORERATIOCHECK",
+                                "compare":">=",
+                                "value":1.2,
+                                "properties":[
+                                    {
+                                        "target":"OPPONENT",
+                                        "turn":0,
+                                        "timing":"AFTER",
+                                        "effect":{
+                                            "discard":{
+                                                "self":0,
+                                                "opponent":1
+                                            }
+                                        }
+                                    }
+                                ]
+                            }    
+                        ]  
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Double Down",
+        "cardtype": "Spell",
+        "description": "If you score at least 2.0x the score of the opposing team this map, the opposing team loses 1 point.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"OPPONENT",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "comparator":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"SCORERATIOCHECK",
+                                "compare":">=",
+                                "value":2.0,
+                                "properties":[
+                                    {
+                                        "target":"OPPONENT",
+                                        "turn":0,
+                                        "timing":"AFTER",
+                                        "effect":{
+                                            "changePoints":{
+                                                "self":0,
+                                                "opponent":-1
+                                            }
+                                        }
+                                    }
+                                ]
+                            }   
+                        ]   
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 23,
+        "name": "More, MORE!",
+        "cardtype": "Gift Spell",
+        "description": "After this card has been activated, you may choose to remove it from play at any time between maps. The opposing team has a 10% boost. If you win a map, draw a card.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":-1,
+                "timing":"AFTER",
+                "effect":{
+                    "scoreMultiplier":{
+                        "self":[],
+                        "opponent":[
+                            {
+                                "keyword":"ALL",
+                                "multiplier":1.1
+                            }
+                        ]
+                    },
+                    "comparator":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"SCORERATIOCHECK",
+                                "negation":false,
+                                "compare":">=",
+                                "value":1.0,
+                                "properties":[
+                                    {
+                                        "target":"SELF",
+                                        "turn":0,
+                                        "timing":"AFTER",
+                                        "effect":{
+                                            "draw":{
+                                                "self":1,
+                                                "opponent":0
+                                            }
+                                        }
+                                    }
+                                ]
+                            }   
+                        ]
+                    },
+                    "disableCondition":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"ANYTIME",
+                                "compare":"",
+                                "value":"",
+                                "properties":[]
+    
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 24,
+        "name": "Roll the Dice",
+        "cardtype": "Trap",
+        "description": "(can only be targeted at a NM map that isn't banned), roll 3. If it is 1, all players must add HD. If it is 2, all players must add HR. If it is 3, all players must add EZ.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "comparator":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"ROLL 3",
+                                "negation":false,
+                                "compare":"==",
+                                "value":1,
+                                "properties":[
+                                    {
+                                        "target":"SELF",
+                                        "turn":0,
+                                        "timing":"BEFORE",
+                                        "effect":{
+                                            "modToggle":{
+                                                "mod":["HD"]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "target":"SELF",
+                                "keyword":"ROLL 3",
+                                "negation":false,
+                                "compare":"==",
+                                "value":2,
+                                "properties":[
+                                    {
+                                        "target":"SELF",
+                                        "turn":0,
+                                        "timing":"BEFORE",
+                                        "effect":{
+                                            "modToggle":{
+                                                "mod":["HR"]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "target":"SELF",
+                                "keyword":"ROLL 3",
+                                "negation":false,
+                                "compare":"==",
+                                "value":3,
+                                "properties":[
+                                    {
+                                        "target":"SELF",
+                                        "turn":0,
+                                        "timing":"BEFORE",
+                                        "effect":{
+                                            "modToggle":{
+                                                "mod":["EZ"]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Exodia's Display",
+        "cardtype": "Spell",
+        "description": "Do Nothing.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 26,
+        "name": "Exodia's Keyboard",
+        "cardtype": "Spell",
+        "description": "Do more Nothing.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 27,
+        "name": "Exodia's Tablet",
+        "cardtype": "Spell",
+        "description": "If you played Exodia's Display and Exodia's Keyboard this turn,  you immediately win the next map.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 28,
+        "name": "Memer's Paradise",
+        "cardtype": "Spell",
+        "description": "Roll 1000. If you roll 727, you may ban one of your opponent's players from playing for the rest of this match.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effect":{
+                    "comparator":{
+                        "conditionals":[
+                            {
+                                "target":"SELF",
+                                "keyword":"ROLL 1000",
+                                "negation":false,
+                                "compare":"==",
+                                "value":727,
+                                "properties":[
+                                    {
+                                        "target":"SELF",
+                                        "turn":0,
+                                        "timing":"BEFORE",
+                                        "effect":{
+                                            "ban":{
+                                                "self":[],
+                                                "opponent":[
+                                                    {
+                                                        "keyword":"CHOOSE",
+                                                        "duration":-1
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Heart of the Osu",
+        "cardtype": "Spell",
+        "description": "Search your deck for one card. Place that card on top of your deck.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 30,
+        "name": "Handy Filter",
+        "cardtype": "Spell",
+        "description": "Draw a card, then discard a card.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effects":{
+                    "draw":{
+                        "self":1,
+                        "opponent":0
+                    },
+                    "discard":{
+                        "self":1,
+                        "opponent":0
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Challenge Me",
+        "cardtype": "Spell",
+        "description": "After the map is picked (you can not pick a HR map), the opposing team picks HR, HD, or EZ and your team must add that mod. If you win the map, win 2 points.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 32,
+        "name": "Flashbang",
+        "cardtype": "Trap",
+        "description": "If the opposing team picks a map without HD, they must add HD. If the opposing team picks a map with HD, your team has the option of playing NM.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 33,
+        "name": "Hot Swap",
+        "cardtype": "Spell",
+        "description": "Both teams select one card from their hand. They swap those cards with each other.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 34,
+        "name": "Full Reset",
+        "cardtype": "Spell",
+        "description": "Both teams discard their entire hand, then draw x cards, where x is the amount of cards they discarded.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 35,
+        "name": "Blood Price",
+        "cardtype": "Spell",
+        "description": "Give your opponent one point. Draw three cards.",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effects":{
+                    "draw":{
+                        "self":3,
+                        "opponent":0
+                    },
+                    "changePoints":{
+                        "self":0,
+                        "opponent":1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 36,
+        "name": "Strategic Sacrifice",
+        "cardtype": "Spell",
+        "description": "Give your opponent one point. Your opponent discards 5 cards from the top of their deck",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effects":{
+                    "mill":{
+                        "self":0,
+                        "opponent":5
+                    },
+                    "changePoints":{
+                        "self":0,
+                        "opponent":1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 37,
+        "name": "An Eye For Two",
+        "cardtype": "Spell",
+        "description": "Discard one card from your hand. Your opponent discards 2 cards from the top of their deck",
+        "copies": 1,
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effects":{
+                    "discard":{
+                        "self":1,
+                        "opponent":0
+                    },
+                    "mill":{
+                        "self":0,
+                        "opponent":2
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Attrition",
+        "cardtype": "Gift Spell",
+        "description": "Pick a map(cannot be TB or a map that is banned/already picked), until the opponent or you pick that map, you both discard 1 card from the top of your deck every turn",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 39,
+        "name": "Hubris",
+        "cardtype": "Cont. Spell",
+        "description": "Select a player from your team. This player must play all maps. Draw 3 cards and discard 1 card from your hand",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 40,
+        "name": "Chastity Belt",
+        "cardtype": "Trap",
+        "description": "Select a player from the opposing team. If they top score the following pick, their teamscore is multiplied by 0.85",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 41,
+        "name": "Refill",
+        "cardtype": "Spell",
+        "description": "Discard 0 to x points, where x is the amount of points you currently have. For each point you discard, select 3 cards from your graveyard and put back into your deck. Shuffle the deck, and draw as many cards as you discarded.",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 42,
+        "name": "Captains' Duel",
+        "cardtype": "Spell",
+        "description": "The captains from both teams will play each other 1v1. The opposing team gets a 1.3x score multiplier",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 43,
+        "name": "Mutual Prosperity of Hinamizawa",
+        "cardtype": "Spell",
+        "description": "Type \"Niaph\" into the lobby chat. If a memeber of the other team types \"Nipah\" within 20 seconds, both teams map add an extra map pick into the pool (teams decide mods and wincon)",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 44,
+        "name": "BlessRNG",
+        "cardtype": "Spell",
+        "description": "Upon play, this card will turn into a random card with a random target and its effect will be executed",
+        "copies": 1,
+        "properties": "{}"
+    },
+    {
+        "id": 45,
+        "name": "Clairvoyance",
+        "cardtype": "Spell",
+        "description": "Select one of your opponent's trap cards on the field. You may view the trap card.",
+        "copies": 1,
+        "properties": "{}"
+    }
+]

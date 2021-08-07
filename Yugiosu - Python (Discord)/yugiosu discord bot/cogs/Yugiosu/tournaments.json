@@ -1,0 +1,32 @@
+{
+    "signups":{
+        "fooooooood":152230223717466112
+    },
+
+    "bracket_1": 
+    {
+        "teams":{
+            "name_1":{
+                "osu name 1":{
+                    "osu_id":0,
+                    "discord_id": "default#0000"
+                },
+                "osu name 2":{
+                    "osu_id":0,
+                    "discord_id": "default#0000"
+                },
+                "osu name 3":{
+                    "osu_id":0,
+                    "discord_id": "default#0000"
+                },
+                "osu name 4":{
+                    "osu_id":0,
+                    "discord_id": "default#0000"
+                },
+                "decks":{
+                    "round_1":[1, 2, 3, 4, 5]
+                }
+            }
+        }
+    }
+}

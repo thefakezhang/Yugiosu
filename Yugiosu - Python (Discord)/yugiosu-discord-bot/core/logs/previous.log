@@ -1,0 +1,14 @@
+[2021-07-07 01:33:47] [INFO] red: Loading packages...
+[2021-07-07 01:33:47] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 01:33:48] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 01:35:34] [ERROR] red: Exception in command 'removecard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 121, in removecard
+    d = await self.config.custom("teams", teamname).decks()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 1130, in custom
+    raise ValueError(f"Group identifier not initialized: {group_identifier}")
+ValueError: Group identifier not initialized: teams
+[2021-07-07 02:23:58] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-07 02:23:58] [INFO] red.main: Please wait, cleaning up a bit more

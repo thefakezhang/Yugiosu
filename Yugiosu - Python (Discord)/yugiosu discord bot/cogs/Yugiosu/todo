@@ -1,0 +1,15 @@
+team creation (taking it from google sheets or creation on the fly for more casual matches)
+notify the IRC bot that there is a match happening (how tf does this work???)
+set up a dictionary of cards, maybe allow aliases for adding cards?
+set up the ability to report absences and designate temporary captain
+
+CUSTOM CHANNELS FOR EACH TEAM????
+
+write email to osu staff about this bot
+
+FINISHED
+
+custom groups so that TEAMS have decks instead of players
+    only players from the team can view/edit their own team deck
+
+making it so that rounds are specified for each deck

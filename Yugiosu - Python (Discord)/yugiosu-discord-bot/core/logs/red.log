@@ -1,0 +1,758 @@
+[2021-07-05 03:30:07] [INFO] red: Begin updating guild configs to support multiple mod/admin roles
+[2021-07-05 03:30:07] [INFO] red: Done updating guild configs to support multiple mod/admin roles
+[2021-07-05 03:30:07] [INFO] red: Moving shared API tokens to a custom group
+[2021-07-05 03:30:08] [INFO] red.main: Shutting down with exit code: 1
+[2021-07-05 03:30:08] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-05 03:31:27] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-05 03:45:32] [INFO] red: Loading packages...
+[2021-07-05 03:45:32] [INFO] red: Loaded packages: trivia
+[2021-07-05 03:45:32] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-05 03:46:05] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1359, in load_extension
+    raise discord.ClientException(f"extension {name} does not have a setup function")
+discord.errors.ClientException: extension mycog does not have a setup function
+[2021-07-05 03:50:09] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1359, in load_extension
+    raise discord.ClientException(f"extension {name} does not have a setup function")
+discord.errors.ClientException: extension mycog does not have a setup function
+[2021-07-05 03:52:10] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1359, in load_extension
+    raise discord.ClientException(f"extension {name} does not have a setup function")
+discord.errors.ClientException: extension mycog does not have a setup function
+[2021-07-05 04:16:54] [ERROR] red: Exception in command 'myname'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 19, in myname
+    "your name is {}".format(user.display_name)
+AttributeError: 'NoneType' object has no attribute 'display_name'
+[2021-07-05 04:17:20] [WARNING] discord.gateway: Shard ID 0 heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\Tony\AppData\Local\Programs\Python\Python38\Scripts\redbot.exe\__main__.py", line 7, in <module>
+    sys.exit(main())
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\__main__.py", line 524, in main
+    loop.run_forever()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\windows_events.py", line 316, in run_forever
+    super().run_forever()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\base_events.py", line 570, in run_forever
+    self._run_once()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\base_events.py", line 1859, in _run_once
+    handle._run()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\events.py", line 81, in _run
+    self._context.run(self._callback, *self._args)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 343, in _run_event
+    await coro(*args, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\events.py", line 252, in on_command_error
+    log.exception(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1481, in exception
+    self.error(msg, *args, exc_info=exc_info, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1475, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1589, in _log
+    self.handle(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1599, in handle
+    self.callHandlers(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1661, in callHandlers
+    hdlr.handle(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 954, in handle
+    self.emit(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\logging.py", line 278, in emit
+    self.console.print(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 1241, in print
+    self._buffer.extend(new_segments)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 596, in __exit__
+    self._exit_buffer()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 574, in _exit_buffer
+    self._check_buffer()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 1375, in _check_buffer
+    write(line)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 41, in write
+    self.__convertor.write(text)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 162, in write
+    self.write_and_convert(text)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 187, in write_and_convert
+    self.write_plain_text(text, cursor, start)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 196, in write_plain_text
+    self.wrapped.flush()
+
+[2021-07-05 04:19:02] [WARNING] red.main: Please do not use Ctrl+C to Shutdown Red! (attempting to die gracefully...)
+[2021-07-05 04:19:02] [ERROR] red.main: Received KeyboardInterrupt, treating as interrupt
+[2021-07-05 04:19:02] [INFO] red.main: Signals.SIGINT received. Quitting...
+[2021-07-05 04:19:02] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-05 04:19:34] [INFO] red: Loading packages...
+[2021-07-05 04:19:34] [INFO] red: Loaded packages: trivia, Yugiosu
+[2021-07-05 04:19:34] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-05 16:58:00] [WARNING] red.main: Please do not use Ctrl+C to Shutdown Red! (attempting to die gracefully...)
+[2021-07-05 16:58:00] [ERROR] red.main: Received KeyboardInterrupt, treating as interrupt
+[2021-07-05 16:58:00] [INFO] red.main: Signals.SIGINT received. Quitting...
+[2021-07-05 16:58:00] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 02:57:18] [INFO] red: Loading packages...
+[2021-07-06 02:57:18] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 02:57:19] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 03:16:44] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-06 03:16:44] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 04:36:25] [INFO] red: Loading packages...
+[2021-07-06 04:36:25] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 04:36:26] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 04:39:50] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in viewdeck
+    "this is your deck:\n{}".format(self.config.user(user).cards[1])
+TypeError: 'Value' object is not subscriptable
+[2021-07-06 04:43:20] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-06 04:43:20] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 04:44:09] [INFO] red: Loading packages...
+[2021-07-06 04:44:09] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 04:44:09] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 04:44:41] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:56: RuntimeWarning: coroutine 'Group.get_raw' was never awaited
+  "this is your deck:\n{}".format(self.config.user(user).get_raw("cards")[1])
+
+[2021-07-06 04:44:41] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in viewdeck
+    "this is your deck:\n{}".format(self.config.user(user).get_raw("cards")[1])
+TypeError: 'coroutine' object is not subscriptable
+[2021-07-06 04:45:03] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:56: RuntimeWarning: coroutine 'Group.get_raw' was never awaited
+  "this is your deck:\n{}".format(self.config.user(user).get_raw("cards")[1])
+
+[2021-07-06 04:46:27] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:56: RuntimeWarning: coroutine 'Group.get_raw' was never awaited
+  "this is your deck:\n{}".format(self.config.user(user).get_raw("cards")[1])
+
+[2021-07-06 04:47:43] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 54, in viewdeck
+    d = await self.config.get_raw("user")
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 504, in get_raw
+    raw = await self.driver.get(identifier_data)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\drivers\json.py", line 138, in get
+    partial = partial[i]
+KeyError: '12345678'
+[2021-07-06 04:48:32] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 54, in viewdeck
+    d = await self.config.get_raw("cards")
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 504, in get_raw
+    raw = await self.driver.get(identifier_data)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\drivers\json.py", line 138, in get
+    partial = partial[i]
+KeyError: '12345678'
+[2021-07-06 05:09:47] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1365, in load_extension
+    lib.setup(self)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\__init__.py", line 5, in setup
+    bot.add_cog(MyCog(bot))
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 15, in __init__
+    self.bracket = json.load("tournaments.json")
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\json\__init__.py", line 293, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+[2021-07-06 05:11:05] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1365, in load_extension
+    lib.setup(self)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\__init__.py", line 5, in setup
+    bot.add_cog(MyCog(bot))
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 14, in __init__
+    self.bracket = json.load("tournaments.json")
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\json\__init__.py", line 293, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+[2021-07-06 05:11:21] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1365, in load_extension
+    lib.setup(self)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\__init__.py", line 5, in setup
+    bot.add_cog(MyCog(bot))
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 14, in __init__
+    self.bracket = json.loads("tournaments.json")
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\json\__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[2021-07-06 05:13:10] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1365, in load_extension
+    lib.setup(self)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\__init__.py", line 5, in setup
+    bot.add_cog(MyCog(bot))
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 14, in __init__
+    with open("tournaments.json") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'tournaments.json'
+[2021-07-06 05:14:08] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1356, in load_extension
+    lib = spec.loader.load_module()
+  File "<frozen importlib._bootstrap_external>", line 522, in _check_name_wrapper
+  File "<frozen importlib._bootstrap_external>", line 1027, in load_module
+  File "<frozen importlib._bootstrap_external>", line 852, in load_module
+  File "<frozen importlib._bootstrap>", line 265, in _load_module_shim
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\__init__.py", line 1, in <module>
+    from .mycog import MyCog
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 14
+    with open("C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\tournaments.json") as f:
+              ^
+SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \UXXXXXXXX escape
+[2021-07-06 05:14:42] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 49, in viewdeck
+    "this is your deck:\n{}".format(self.bracket['bracket 1']['teams']['name_1']['decks']['round_1'])
+KeyError: 'bracket 1'
+[2021-07-06 05:15:14] [ERROR] red: Exception in command 'addcard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in addcard
+    self.bracket['bracket_1']['teams']['name_1']['decks']['round_1'].push(number)
+AttributeError: 'list' object has no attribute 'push'
+[2021-07-06 05:16:07] [ERROR] red: Exception in command 'addcard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in addcard
+    self.bracket['bracket_1']['teams']['name_1']['decks']['round_1'].append(number).sort()
+AttributeError: 'NoneType' object has no attribute 'sort'
+[2021-07-06 05:18:16] [ERROR] red: Exception in command 'addcard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in addcard
+    self.bracket['bracket_1']['teams']['name_1']['decks']['round_1'].append(number).sorted()
+AttributeError: 'NoneType' object has no attribute 'sorted'
+[2021-07-06 05:26:11] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in viewdeck
+    "this is your deck:\n{}".format(await self.config.user(user).get_attr("cards"))
+TypeError: object Value can't be used in 'await' expression
+[2021-07-06 05:34:39] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:56: RuntimeWarning: coroutine 'Group._get' was never awaited
+  "this is your deck:\n{}".format(await self.config.user(user).get_attr("cards"))
+
+[2021-07-06 05:34:39] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in viewdeck
+    "this is your deck:\n{}".format(await self.config.user(user).all()['cards'])
+TypeError: '_ValueCtxManager' object is not subscriptable
+[2021-07-06 05:35:20] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:56: RuntimeWarning: coroutine 'Group._get' was never awaited
+  "this is your deck:\n{}".format(await self.config.user(user).all()['cards'])
+
+[2021-07-06 05:35:20] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 56, in viewdeck
+    "this is your deck:\n{}".format(await self.config.user(user).all().cards)
+AttributeError: '_ValueCtxManager' object has no attribute 'cards'
+[2021-07-06 05:37:16] [WARNING] discord.gateway: Shard ID 0 heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\Tony\AppData\Local\Programs\Python\Python38\Scripts\redbot.exe\__main__.py", line 7, in <module>
+    sys.exit(main())
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\__main__.py", line 524, in main
+    loop.run_forever()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\windows_events.py", line 316, in run_forever
+    super().run_forever()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\base_events.py", line 570, in run_forever
+    self._run_once()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\base_events.py", line 1859, in _run_once
+    handle._run()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\events.py", line 81, in _run
+    self._context.run(self._callback, *self._args)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 343, in _run_event
+    await coro(*args, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\events.py", line 354, in on_message
+    await bot.process_commands(message)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1325, in process_commands
+    await self.invoke(ctx)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\bot.py", line 939, in invoke
+    await ctx.command.invoke(ctx)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 863, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 55, in viewdeck
+    print(type(d))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 41, in write
+    self.__convertor.write(text)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 162, in write
+    self.write_and_convert(text)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 190, in write_and_convert
+    self.write_plain_text(text, cursor, len(text))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 196, in write_plain_text
+    self.wrapped.flush()
+
+[2021-07-06 05:46:27] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 54, in viewdeck
+    d = await self.config.user(user).cards
+TypeError: object Value can't be used in 'await' expression
+[2021-07-06 05:47:13] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:65: RuntimeWarning: coroutine 'Value._get' was never awaited
+  await self.config.user(user).cards().set()
+
+[2021-07-06 05:47:13] [ERROR] red: Exception in command 'addcard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 65, in addcard
+    await self.config.user(user).cards().set(d)
+AttributeError: '_ValueCtxManager' object has no attribute 'set'
+[2021-07-06 05:51:27] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-06 05:51:27] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 05:51:33] [INFO] red: Loading packages...
+[2021-07-06 05:51:33] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 05:51:34] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 05:52:04] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-06 05:52:04] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 05:52:08] [INFO] red: Loading packages...
+[2021-07-06 05:52:08] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 05:52:09] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 05:55:39] [ERROR] red: Exception in command 'addcard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 66, in addcard
+    await ctx.send("{} has been added to your deck!".format(number))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\commands\context.py", line 93, in send
+    return await super().send(content=content, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\abc.py", line 1065, in send
+    data = await state.http.send_message(channel.id, content, tts=tts, embed=embed,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 254, in request
+    raise HTTPException(r, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In content: Must be 2000 or fewer in length.
+[2021-07-06 05:56:03] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 55, in viewdeck
+    await ctx.send(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\commands\context.py", line 93, in send
+    return await super().send(content=content, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\abc.py", line 1065, in send
+    data = await state.http.send_message(channel.id, content, tts=tts, embed=embed,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 254, in request
+    raise HTTPException(r, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In content: Must be 4000 or fewer in length.
+[2021-07-06 05:57:27] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 55, in viewdeck
+    await ctx.send(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\commands\context.py", line 93, in send
+    return await super().send(content=content, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\abc.py", line 1065, in send
+    data = await state.http.send_message(channel.id, content, tts=tts, embed=embed,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 254, in request
+    raise HTTPException(r, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In content: Must be 4000 or fewer in length.
+[2021-07-06 05:57:35] [ERROR] red: Exception in command 'viewdeck'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 55, in viewdeck
+    await ctx.send(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\commands\context.py", line 93, in send
+    return await super().send(content=content, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\abc.py", line 1065, in send
+    data = await state.http.send_message(channel.id, content, tts=tts, embed=embed,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 254, in request
+    raise HTTPException(r, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In content: Must be 4000 or fewer in length.
+[2021-07-06 06:01:14] [ERROR] red: Exception in command 'addcard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 78, in addcard
+    await ctx.send("{} has been added to your deck!".format(number))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\commands\context.py", line 93, in send
+    return await super().send(content=content, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\abc.py", line 1065, in send
+    data = await state.http.send_message(channel.id, content, tts=tts, embed=embed,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 254, in request
+    raise HTTPException(r, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In content: Must be 2000 or fewer in length.
+[2021-07-06 06:04:40] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:73: RuntimeWarning: coroutine 'Context.send' was never awaited
+  async def addcard(self, ctx, number:int):
+
+[2021-07-06 06:30:29] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-06 06:30:29] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 22:46:35] [INFO] red: Loading packages...
+[2021-07-06 22:46:35] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 22:46:36] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 23:22:20] [ERROR] red: Exception in command 'addmember'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 117, in addmember
+    members.append(teammate.id)
+AttributeError: 'dict' object has no attribute 'append'
+[2021-07-06 23:23:01] [ERROR] red: Package loading failed
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\core_commands.py", line 173, in _load
+    await bot.load_extension(spec)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\bot.py", line 1365, in load_extension
+    lib.setup(self)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\__init__.py", line 5, in setup
+    bot.add_cog(MyCog(bot))
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 40, in __init__
+    self.config.register_custom("team", **default_team)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 904, in register_custom
+    self._register_default(group_identifier, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 814, in _register_default
+    self._update_defaults(to_add, self._defaults[key])
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 798, in _update_defaults
+    raise KeyError("You cannot register a Group and a Value under the same name.")
+KeyError: 'You cannot register a Group and a Value under the same name.'
+[2021-07-06 23:31:23] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Group._get' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-06 23:35:09] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:124: RuntimeWarning: coroutine 'Client.fetch_user' was never awaited
+  membernames.append(self.config.user_from_id(x).identifier_data)
+
+[2021-07-06 23:35:09] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 124, in viewteam
+    membernames.append(await self.client.fetch_user(x).display_name)
+AttributeError: 'coroutine' object has no attribute 'display_name'
+[2021-07-06 23:35:52] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 125, in viewteam
+    (await self.client.fetch_user(x)).display_name
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-06 23:36:32] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 125, in viewteam
+    (await self.client.fetch_user(x))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-06 23:44:00] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 125, in viewteam
+    (await self.config.user_from_id(x))
+TypeError: object Group can't be used in 'await' expression
+[2021-07-06 23:48:54] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Config.all_users' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-06 23:50:33] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 126, in viewteam
+    await self.config.user_from_id(x)
+TypeError: object Group can't be used in 'await' expression
+[2021-07-06 23:55:32] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-06 23:55:32] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-06 23:55:38] [INFO] red: Loading packages...
+[2021-07-06 23:55:38] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-06 23:55:39] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-06 23:55:44] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 126, in viewteam
+    (await self.client.fetch_user(x)).display_name
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-06 23:56:41] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 126, in viewteam
+    (await self.client.fetch_user(x))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-06 23:57:26] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Client.fetch_user' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-06 23:58:16] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 126, in viewteam
+    await self.client.fetch_user(x)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-07 00:02:05] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 128, in viewteam
+    await ctx.send("{} is composed of these members:\n{}".format(teamname, await self.client.fetch_user(152230223717466112)))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-07 00:03:46] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 128, in viewteam
+    await ctx.send("{} is composed of these members:\n{}".format(teamname, await self.client.fetch_user(152230223717466112)))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-07 00:04:04] [WARNING] discord.gateway: Shard ID 0 heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\Tony\AppData\Local\Programs\Python\Python38\Scripts\redbot.exe\__main__.py", line 7, in <module>
+    sys.exit(main())
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\__main__.py", line 524, in main
+    loop.run_forever()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\windows_events.py", line 316, in run_forever
+    super().run_forever()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\base_events.py", line 570, in run_forever
+    self._run_once()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\base_events.py", line 1859, in _run_once
+    handle._run()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\events.py", line 81, in _run
+    self._context.run(self._callback, *self._args)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 343, in _run_event
+    await coro(*args, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\events.py", line 252, in on_command_error
+    log.exception(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1481, in exception
+    self.error(msg, *args, exc_info=exc_info, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1475, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1589, in _log
+    self.handle(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1599, in handle
+    self.callHandlers(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 1661, in callHandlers
+    hdlr.handle(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\logging\__init__.py", line 954, in handle
+    self.emit(record)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\logging.py", line 278, in emit
+    self.console.print(
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 1241, in print
+    self._buffer.extend(new_segments)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 596, in __exit__
+    self._exit_buffer()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 574, in _exit_buffer
+    self._check_buffer()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\rich\console.py", line 1375, in _check_buffer
+    write(line)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 41, in write
+    self.__convertor.write(text)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 162, in write
+    self.write_and_convert(text)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 187, in write_and_convert
+    self.write_plain_text(text, cursor, start)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\colorama\ansitowin32.py", line 196, in write_plain_text
+    self.wrapped.flush()
+
+[2021-07-07 00:07:23] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 142, in viewteam
+    await ctx.send("{} is composed of these members:\n{}".format(teamname, await self.client.fetch_user(152230223717466112)))
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\client.py", line 1384, in fetch_user
+    data = await self.http.get_user(user_id)
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\http.py", line 192, in request
+    async with self.__session.request(method, url, **kwargs) as r:
+AttributeError: 'NoneType' object has no attribute 'request'
+[2021-07-07 00:19:25] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 138, in viewteam
+    await self.client.wait_until_ready
+TypeError: object method can't be used in 'await' expression
+[2021-07-07 00:22:31] [WARNING] red.main: Please do not use Ctrl+C to Shutdown Red! (attempting to die gracefully...)
+[2021-07-07 00:22:31] [ERROR] red.main: Received KeyboardInterrupt, treating as interrupt
+[2021-07-07 00:22:31] [INFO] red.main: Signals.SIGINT received. Quitting...
+[2021-07-07 00:22:31] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 00:22:37] [INFO] red: Loading packages...
+[2021-07-07 00:22:37] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 00:22:38] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 00:24:03] [CRITICAL] red.main: Caught unhandled exception in event loop:
+Task was destroyed but it is pending!
+[2021-07-07 00:24:03] [CRITICAL] red.main: Caught unhandled exception in event loop:
+Task was destroyed but it is pending!
+[2021-07-07 00:24:03] [CRITICAL] red.main: Caught unhandled exception in event loop:
+Task was destroyed but it is pending!
+[2021-07-07 00:27:36] [WARNING] red.main: Please do not use Ctrl+C to Shutdown Red! (attempting to die gracefully...)
+[2021-07-07 00:27:36] [ERROR] red.main: Received KeyboardInterrupt, treating as interrupt
+[2021-07-07 00:27:36] [INFO] red.main: Signals.SIGINT received. Quitting...
+[2021-07-07 00:27:36] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 00:27:40] [INFO] red: Loading packages...
+[2021-07-07 00:27:40] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 00:27:41] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 00:29:11] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:140: RuntimeWarning: coroutine 'Guild.fetch_member' was never awaited
+  ctx.author.guild.fetch_member(x).name
+
+[2021-07-07 00:29:11] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 140, in viewteam
+    ctx.author.guild.fetch_member(x).name
+AttributeError: 'coroutine' object has no attribute 'name'
+[2021-07-07 00:29:42] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:140: RuntimeWarning: coroutine 'Guild.fetch_member' was never awaited
+  ctx.author.guild.fetch_member(x).name
+
+[2021-07-07 00:29:42] [ERROR] red: Exception in command 'viewteam'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 140, in viewteam
+    await ctx.author.guild.fetch_member(x).name
+AttributeError: 'coroutine' object has no attribute 'name'
+[2021-07-07 01:15:42] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Value._get' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-07 01:16:41] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:203: RuntimeWarning: coroutine 'Context.send' was never awaited
+
+[2021-07-07 01:17:05] [WARNING] red.main: Please do not use Ctrl+C to Shutdown Red! (attempting to die gracefully...)
+[2021-07-07 01:17:05] [ERROR] red.main: Received KeyboardInterrupt, treating as interrupt
+[2021-07-07 01:17:05] [INFO] red.main: Signals.SIGINT received. Quitting...
+[2021-07-07 01:17:05] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 01:17:10] [INFO] red: Loading packages...
+[2021-07-07 01:17:10] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 01:17:10] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 01:17:36] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Value._get' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-07 01:23:28] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-07 01:23:28] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 01:23:45] [INFO] red: Loading packages...
+[2021-07-07 01:23:45] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 01:23:46] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 01:23:57] [WARNING] py.warnings: C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py:220: RuntimeWarning: coroutine 'Context.send' was never awaited
+  ctx.send("{} is on team {}".format(user.display_name, await self.config.user(user).team()))
+
+[2021-07-07 01:24:14] [WARNING] red.main: Please do not use Ctrl+C to Shutdown Red! (attempting to die gracefully...)
+[2021-07-07 01:24:14] [ERROR] red.main: Received KeyboardInterrupt, treating as interrupt
+[2021-07-07 01:24:14] [INFO] red.main: Signals.SIGINT received. Quitting...
+[2021-07-07 01:24:14] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 01:24:18] [INFO] red: Loading packages...
+[2021-07-07 01:24:19] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 01:24:19] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 01:24:37] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Value._get' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-07 01:27:21] [ERROR] red: Exception in command 'removecard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 122, in removecard
+    d = await self.config.custom("teams", teamname).decks()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 1130, in custom
+    raise ValueError(f"Group identifier not initialized: {group_identifier}")
+ValueError: Group identifier not initialized: teams
+[2021-07-07 01:27:22] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\asyncio\events.py:81: RuntimeWarning: coroutine 'Value._get' was never awaited
+  self._context.run(self._callback, *self._args)
+
+[2021-07-07 01:30:50] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-07 01:30:58] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 01:31:02] [INFO] red: Loading packages...
+[2021-07-07 01:31:02] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 01:31:03] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 01:31:16] [WARNING] py.warnings: c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py:85: RuntimeWarning: coroutine 'Value._get' was never awaited
+  ret = await coro(*args, **kwargs)
+
+[2021-07-07 01:33:22] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-07 01:33:22] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-07 01:33:47] [INFO] red: Loading packages...
+[2021-07-07 01:33:47] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-07 01:33:48] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-07 01:35:34] [ERROR] red: Exception in command 'removecard'
+Traceback (most recent call last):
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\discord\ext\commands\core.py", line 85, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "C:\Users\Tony\Desktop\Programming\Python\yugiosu discord bot\cogs\Yugiosu\mycog.py", line 121, in removecard
+    d = await self.config.custom("teams", teamname).decks()
+  File "c:\users\tony\appdata\local\programs\python\python38\lib\site-packages\redbot\core\config.py", line 1130, in custom
+    raise ValueError(f"Group identifier not initialized: {group_identifier}")
+ValueError: Group identifier not initialized: teams
+[2021-07-07 02:23:58] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-07 02:23:58] [INFO] red.main: Please wait, cleaning up a bit more
+[2021-07-08 06:52:11] [INFO] red: Loading packages...
+[2021-07-08 06:52:11] [INFO] red: Loaded packages: trivia, bank, Yugiosu
+[2021-07-08 06:52:12] [INFO] red: Connected to Discord. Getting ready...
+[2021-07-08 07:07:31] [INFO] red.main: Shutting down with exit code: ExitCodes.SHUTDOWN
+[2021-07-08 07:07:31] [INFO] red.main: Please wait, cleaning up a bit more

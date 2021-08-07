@@ -1,0 +1,9 @@
+on start of turn
+
+draw card
+play cards:
+    trap cards are not activated upon play
+    spell and continuous spell cards are resolved upon their correct timings
+pick map
+    upon pick, opponent trap card effects are activated
+    UPON CONFLICTS, TRAP CARDS TAKE PRECeDENCE
