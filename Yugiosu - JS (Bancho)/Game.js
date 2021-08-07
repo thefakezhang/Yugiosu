@@ -60,6 +60,17 @@ class Game{
 
         this.playHistory = [];
         this.effectManager = new EffectManager(this.mappool);
+
+        this.team1Roller = '';
+        this.team1Roll = -1;
+        this.team2Roller = '';
+        this.team2Roll = -1;
+        this.rollWinner = -1;
+
+        this.team1WantsWarmups = -1;
+        this.team1PlayedWarmups = false;
+        this.team2WantsWarmups = -1;
+        this.team2PlayedWarmups = false;
     }
 
     /**
@@ -110,6 +121,35 @@ class Game{
         //passes in the map code as well as if the current player is player1 (boolean)
         this.mappool.pick(code.toUpperCase(), Object.is(this.currentPlayer, this.player1));
         this.apply();
+    }
+
+    /**
+     * 
+     * @param {PHASE} phase the phase that one should change to
+     */
+    changePhase(phase){
+        this.phase = phase;
+    }
+
+    /**
+     * compares the rolls of both teams and gives the larger roll the right to decide picks/bans first.
+     * Upon equal roll it will keep rollWinner at -1
+     */
+    compareRolls(){
+        if(this.team1Roll != -1 && this.team2Roll != -1){
+            if(this.team1Roll > this.team2Roll){
+                this.rollWinner = 0;
+            }else if(this. team1Roll < this.team2Roll){
+                this.rollWinner = 1;
+            }
+        }
+    }
+
+    resetRollInfo(){
+        this.team1Roll = -1;
+        this.team2Roll = -1;
+        this.team1Roller = '';
+        this.team2Roller = '';
     }
 
     /**

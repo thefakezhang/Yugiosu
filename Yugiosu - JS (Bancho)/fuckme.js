@@ -196,6 +196,10 @@ async function init() {
               channel.sendMessage(`Bruh you're not on a team!`);
             }
             break;
+          case 'phase':
+            let phase = parseInt(m[1]);
+            game.changePhase(phase);
+            break;
           case 'score':
             match.score[0] = parseInt(m[1]);
             match.score[1] = parseInt(m[2]);
@@ -218,23 +222,181 @@ async function init() {
         }
       } 
      
-
+      const m = msg.message.split(' ');
+      //console.log(chalk.yellow(`Received command "${m[0]}"`));
       //PLAYER COMMANDS
-      switch(game.phase){
+      switch(game.phase){ //TODO add a prompt asking both teams if they're ready.
         case Game.PHASE.PREP:
-          
+          switch(m[0]){
+            case 'next':
+              game.changePhase(Game.PHASE.ROLLS);
+              channel.sendMessage("going into rolls phase...");
+              channel.sendMessage("the first roll from any player from either team will be taken as the team roll. Roll when you're ready!");
+              channel.sendMessage("!mp timer 45");
+              break;
+          }
           break;
         case Game.PHASE.ROLLS:
-          
+          switch(m[0]){
+            case '!roll':
+              if(m.length == 2 && m[1].match('^[0-9]+$') && parseInt(m[1]) != 100){ //player is trying to roll out of something other than 100
+                channel.sendMessage(`${msg.user.ircUsername} is trying to roll out of something other than 100! bad boy!`);
+                break;
+              } 
+
+              if(match.teams[0].members.includes(msg.user.id)){ //team 1 just rolled
+                game.team1Roller = msg.user.ircUsername;
+              }else if(match.teams[1].members.includes(msg.user.id)){ //team 2 just rolled
+                game.team2Roller = msg.user.ircUsername;
+              }else{ //someone on neither team just rolled
+
+              }
+              break;
+
+            case game.team1Roller:
+              channel.sendMessage("recording team 1's roll...");
+              //console.log(`username: ${msg.user.ircUsername}, second message: ${m[1]}, team2roll: ${game.team1Roll}`);
+              if(msg.user.ircUsername == 'BanchoBot' && m[1] === 'rolls' && game.team1Roll == -1){ //checks that this is from bancho and that the team hasn't rolled yet
+                game.team1Roll = parseInt(m[2]);
+                if(game.team2Roll != -1){ //if game has already recieved the other team's roll, move to next phase
+                  game.compareRolls();
+                  
+                  if(game.rollWinner == -1){ //if rolls are equal, will have to repeat
+                    channel.sendMessage(`blimey! It looks like both teams rolled the same number! Roll again...`);
+                    game.resetRollInfo();
+                    break;
+                  }else{
+                    channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
+                  }
+
+                  game.changePhase(Game.PHASE.WARMUP);
+                  channel.sendMessage("going into warmups phase...");
+                  channel.sendMessage("Would each team like to play a warmup? Please respond with \'yes\' or \'no\'.");
+                  channel.sendMessage("!mp timer 45");
+                }
+              }
+              break;
+            
+            case game.team2Roller:
+              channel.sendMessage("recording team 2's roll...");
+              //console.log(`username: ${msg.user.username}, second message: ${m[1]}, team2roll: ${game.team2Roll}`);
+              if(msg.user.ircUsername == 'BanchoBot' && m[1] === 'rolls' && game.team2Roll == -1){ //checks that this is from bancho and that the team hasn't rolled yet
+                game.team2Roll = parseInt(m[2]);
+                if(game.team1Roll != -1){ //if game has already recieved the other team's roll, move to next phase
+                  game.compareRolls();
+
+                  if(game.rollWinner == -1){ //if rolls are equal, will have to repeat
+                    channel.sendMessage(`blimey! It looks like both teams rolled the same number! Roll again...`);
+                    game.resetRollInfo();
+                    break;
+                  }else{
+                    channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
+                  }
+
+                  game.changePhase(Game.PHASE.WARMUP);
+                  channel.sendMessage("going into warmups phase...");
+                  channel.sendMessage("Would each team like to play a warmup? Please respond with \'yes\' or \'no\'.");
+                  channel.sendMessage("!mp timer 45");
+                }
+              }
+              break;  
+            
+            case 'Countdown':
+              if(m[1] === 'finished'){ //if one or both teams don't finish rolling by the countdown
+                channel.sendMessage(`the timer has finished! If a team hasn't rolled yet, their roll will default to 0`);
+                if(game.team1Roll == -1 && game.team2Roll == -1){ //in the event that neither team rolled...
+                  channel.sendMessage(`it seems like neither team has rolled... Now randomly assigning winner...`)
+                  game.rollWinner = Math.floor(Math.random() * 2);
+                }
+
+                if(game.team1Roll == -1){ //if ONLY team 1 didn't roll
+                  game.team1Roll = 0;
+                  game.compareRolls();
+                }
+
+                if(game.team2Roll == -1){ //if ONLY team 2 didn't roll
+                  game.team2Roll = 0;
+                  game.compareRolls();
+                }
+
+                channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
+                game.changePhase(Game.PHASE.WARMUP);
+                channel.sendMessage("going into warmups phase...");
+                channel.sendMessage("Would each team like to play a warmup? Please respond with \'yes\' or \'no\'.");
+                channel.sendMessage("!mp timer 45");
+              }
+          }
           break;
         case Game.PHASE.WARMUP:
-          
+          switch(m[0].toLowerCase()){
+            case 'yes':
+              if(match.teams[0].members.includes(msg.user.id) && game.team1WantsWarmups == -1){ //team 1 said yes as the first response
+                game.team1WantsWarmups = 1;
+              }else if(match.teams[1].members.includes(msg.user.id) && game.team2WantsWarmups == -1){ //team 2 said yes as the first response
+                game.team2WantsWarmups = 1;
+              }
+
+              if(game.team2WantsWarmups != -1 && game.team1WantsWarmups != -1){
+                channel.sendMessage("changing host...");
+                if(game.rollWinner == 0){
+                  if(game.team1WantsWarmups == 1){
+
+                    for(let id of match.teams[0].members){
+                      await lobby.setHost("#" + id);
+                      if(lobby.getHost().user.id == id){
+                        break;
+                      }
+                    }
+
+                  }else if(game.team2WantsWarmups == 1){
+                    for(let id of match.teams[1].members){
+                      await lobby.setHost("#" + id);
+                      if(lobby.getHost().user.id == id){
+                        break;
+                      }
+                    }
+                  }
+                }else{
+                  if(game.team2WantsWarmups == 1){
+                    for(let id of match.teams[1].members){
+                      await lobby.setHost("#" + id);
+                      if(lobby.getHost().user.id == id){
+                        break;
+                      }
+                    }
+                  }else if(game.team1WantsWarmups == 1){
+                    for(let id of match.teams[0].members){
+                      await lobby.setHost("#" + id);
+                      if(lobby.getHost().user.id == id){
+                        break;
+                      }
+                    }
+                  }
+                }
+              }
+              break;
+
+            case 'no':
+              if(match.teams[0].members.includes(msg.user.id) && game.team2WantsWarmups == -1){ //team 1 said no as the first response
+                game.team1WantsWarmups = 0;
+              }else if(match.teams[1].members.includes(msg.user.id) && game.team2WantsWarmups == -1){ //team 2 said no as the first response
+                game.team2WantsWarmups = 0;
+              }
+              
+          }
           break;
         case Game.PHASE.BANS:
-          
+          //should not require commands, just map picks
+          while(Game.bansNotDone()){
+
+          }
           break;
         case Game.PHASE.CARDS:
-          
+          switch(m[0]){
+            case 'next':
+              game.changePhase(Game.PHASE.PICK);
+              break;
+          }
           break;
         case Game.PHASE.PICK:
           // people on the picking team can choose just by saying the map name/code
@@ -244,7 +406,11 @@ async function init() {
           }
           break;
         case Game.PHASE.PLAY:
-          
+          switch(m[0]){
+            case 'abort':
+              //TODO: abort the map if its within time restraints
+              break;
+          }
           break;        
       }
       
