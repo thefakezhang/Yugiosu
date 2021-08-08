@@ -309,10 +309,9 @@
                 "timing":"BEFORE",
                 "effect":{
                     "pickban":{
-
                     },
                     "changePickOrder":{
-                        "order":"110"
+                        "order":"0110"
                     }
                 }    
             }
@@ -553,6 +552,7 @@
                                 "target":"SELF",
                                 "keyword":"SCORERATIOCHECK",
                                 "compare":">=",
+                                "negation": false,
                                 "value":2.0,
                                 "properties":[
                                     {
@@ -643,64 +643,84 @@
         "copies": 1,
         "properties": [
             {
-                "target":"SELF",
+                "target":"LOBBY",
                 "turn":0,
                 "timing":"BEFORE",
                 "effect":{
-                    "comparator":{
-                        "conditionals":[
+                    "comparator": {
+                        "conditionals": [
                             {
-                                "target":"SELF",
-                                "keyword":"ROLL 3",
-                                "negation":false,
-                                "compare":"==",
-                                "value":1,
-                                "properties":[
+                                "target": "EITHER",
+                                "keyword": "PICK",
+                                "negation": false,
+                                "compare": "CONTAINS",
+                                "value": "NM",
+                                "properties": [
                                     {
-                                        "target":"SELF",
-                                        "turn":0,
-                                        "timing":"BEFORE",
-                                        "effect":{
-                                            "modToggle":{
-                                                "mod":["HD"]
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "target":"SELF",
-                                "keyword":"ROLL 3",
-                                "negation":false,
-                                "compare":"==",
-                                "value":2,
-                                "properties":[
-                                    {
-                                        "target":"SELF",
-                                        "turn":0,
-                                        "timing":"BEFORE",
-                                        "effect":{
-                                            "modToggle":{
-                                                "mod":["HR"]
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "target":"SELF",
-                                "keyword":"ROLL 3",
-                                "negation":false,
-                                "compare":"==",
-                                "value":3,
-                                "properties":[
-                                    {
-                                        "target":"SELF",
-                                        "turn":0,
-                                        "timing":"BEFORE",
-                                        "effect":{
-                                            "modToggle":{
-                                                "mod":["EZ"]
+                                        "target": "LOBBY",
+                                        "turn": 0,
+                                        "timing": "BEFORE",
+                                        "effect": {
+                                            "comparator":{
+                                                "conditionals":[
+                                                    {
+                                                        "target":"SELF",
+                                                        "keyword":"ROLL 3",
+                                                        "negation":false,
+                                                        "compare":"==",
+                                                        "value":1,
+                                                        "properties":[
+                                                            {
+                                                                "target":"SELF",
+                                                                "turn":0,
+                                                                "timing":"BEFORE",
+                                                                "effect":{
+                                                                    "modToggle":{
+                                                                        "mod":["HD"]
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "target":"SELF",
+                                                        "keyword":"ROLL 3",
+                                                        "negation":false,
+                                                        "compare":"==",
+                                                        "value":2,
+                                                        "properties":[
+                                                            {
+                                                                "target":"SELF",
+                                                                "turn":0,
+                                                                "timing":"BEFORE",
+                                                                "effect":{
+                                                                    "modToggle":{
+                                                                        "mod":["HR"]
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "target":"SELF",
+                                                        "keyword":"ROLL 3",
+                                                        "negation":false,
+                                                        "compare":"==",
+                                                        "value":3,
+                                                        "properties":[
+                                                            {
+                                                                "target":"SELF",
+                                                                "turn":0,
+                                                                "timing":"BEFORE",
+                                                                "effect":{
+                                                                    "modToggle":{
+                                                                        "mod":["EZ"]
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
                                             }
                                         }
                                     }
@@ -718,7 +738,18 @@
         "cardtype": "Spell",
         "description": "Do Nothing.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "exodia": {
+                        "number": 0
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 26,
@@ -726,7 +757,18 @@
         "cardtype": "Spell",
         "description": "Do more Nothing.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "exodia": {
+                        "number": 1
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 27,
@@ -734,7 +776,48 @@
         "cardtype": "Spell",
         "description": "If you played Exodia's Display and Exodia's Keyboard this turn,  you immediately win the next map.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target":"LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "exodia": {
+                        "number": 2
+                    },
+                    "comparator": {
+                        "conditionals": [
+                            {
+                                "target": "SELF",
+                                "keyword": "EXODIA",
+                                "negation": false,
+                                "compare": "==",
+                                "value": 1,
+                                "properties": [
+                                    {
+                                        "target": "LOBBY",
+                                        "turn": 0,
+                                        "timing": "BEFORE",
+                                        "effect": {
+                                            "changePoints": {
+                                                "self": 1,
+                                                "opponent": 0
+                                            },
+                                            "markMapPlayed": {
+                                                "maps": ["CURRENT"]
+                                            },
+                                            "changePickOrder": {
+                                                "order": "10"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 28,
@@ -787,7 +870,19 @@
         "cardtype": "Spell",
         "description": "Search your deck for one card. Place that card on top of your deck.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"IMMEDIATELY",
+                "effects": {
+                    "comb": {
+                        "self": 1,
+                        "opponent": 0
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 30,
@@ -819,7 +914,62 @@
         "cardtype": "Spell",
         "description": "After the map is picked (you can not pick a HR map), the opposing team picks HR, HD, or EZ and your team must add that mod. If you win the map, win 2 points.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":0,
+                "timing":"BEFORE",
+                "effects": {
+                    "comparator": {
+                        "conditionals": [
+                            {
+                                "target": "SELF",
+                                "keyword": "PICK",
+                                "compare": "CONTAINS",
+                                "negation": false,
+                                "value": "HR",
+                                "properties": [
+                                    {
+                                        "target": "SELF",
+                                        "turn": 0,
+                                        "timing": "BEFORE",
+                                        "effect": {
+                                            "takeInput": {
+                                                "type": "MOD",
+                                                "properties": [
+                                                    {
+                                                        "target": "SELF",
+                                                        "turn": 0,
+                                                        "timing": "BEFORE",
+                                                        "effect": {
+                                                            "modToggleInput": {
+                                                                "self": true,
+                                                                "opponent": false
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "target": "LOBBY",
+                                        "turn": 0,
+                                        "timing": "AFTER",
+                                        "effect": {
+                                            "pointReward": {
+                                                "self": 2,
+                                                "opponent": 1
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 32,
@@ -856,7 +1006,7 @@
                 "target":"SELF",
                 "turn":0,
                 "timing":"BEFORE",
-                "effects":{
+                "effect":{
                     "draw":{
                         "self":3,
                         "opponent":0
@@ -880,7 +1030,7 @@
                 "target":"SELF",
                 "turn":0,
                 "timing":"BEFORE",
-                "effects":{
+                "effect":{
                     "mill":{
                         "self":0,
                         "opponent":5
@@ -904,7 +1054,7 @@
                 "target":"SELF",
                 "turn":0,
                 "timing":"BEFORE",
-                "effects":{
+                "effect":{
                     "discard":{
                         "self":1,
                         "opponent":0

@@ -16,14 +16,33 @@ class Effect{
 
         //I have no fucking clue how to start writing this
         //edit: I have no fucking clue how I wrote this
+        //currently written in are default values
         this.properties = [
             {
+                //Target? We don't really have a use for this rn.
+                "target":"",
                 //turn indicates what turn this effect takes place. 0 is THIS turn, 1 is the next team's turn, 2 is the turn after that, etc etc
                 //turn of -1 indicates continuous effect
                 "turn":0,
-                //-1 = undefined, 0 = before map starts, 1 = after map ends
-                "timing":-1,
+                //timing indicates when in a turn this effect takes place. (Relative to when the map is played)
+                //Possible keywords are: "UNDEFINED","BEFORE","AFTER","IMMEDIATELY"
+                "timing":"UNDEFINED",
                 "effect":{
+                    "takeInput": {
+                        "active": false,
+                        //Possible types are:
+                        //"MOD",
+                        "type": "",
+                        //A new effect object which has access to the solicited input
+                        //for effects that expect input
+                        "properties": []
+                    },
+                    "modToggleInput":{
+                        "active":false,
+                        //enables the mod specified by "takeInput"
+                        "self":false,
+                        "opponent":false
+                    },
                     "modToggle":{
                         //toggles mods
                         "active":false,
@@ -36,6 +55,7 @@ class Effect{
                     },
                     "teamSize":{
                         //determines team sizes
+                        //0 = full team
                         "active":false,
                         "self": 0,
                         "opponent": 0
@@ -60,7 +80,7 @@ class Effect{
                     "scoreMultiplier":{
                         "active": false,
                         /**
-                         * self and opponent are lists of dictionaries with the entires {"keyword":<keyword>, "multiplier":<float>}
+                         * self and opponent are lists of dictionaries with the entries {"keyword":<keyword>, "multiplier":<float>}
                          * 
                          * POSSIBLE KEYWORDS:
                          * "CAPTAIN" - forces captain to play
@@ -80,14 +100,16 @@ class Effect{
                         "opponent":1
                     },
                     "changePoints":{
-                        //determines how many points to add/subtract from each team
+                        //determines how many points to add (can take negatives) to each team
                         "active":false,
                         "self":0,
                         "opponent":0
                     },
                     "exodia":{
                         //exodia
-                        "active":false
+                        "active":false,
+                        //Display is 0, Keyboard is 1, and Tablet is 2
+                        "number":-1
                     },
                     "draw":{
                         "active":false,
@@ -95,6 +117,7 @@ class Effect{
                         "opponent":0
                     },
                     "discard":{
+                        //all discard effects are selected by the team discarding
                         "active":false,
                         "self":0,
                         "opponent":0
@@ -108,13 +131,17 @@ class Effect{
                     },
                     "comb":{
                         "active":false,
-                        //searches self deck for a card and places it on top of a deck
+                        //self searches self deck for a number of cards and places them on top of the deck
+                        //the first card chosen is, at the end of the effect resolving, on the very top,
+                        //the second card chosen right below the first, and so on.
                         "self":0,
-                        //searches self deck for a card and places it on top of a deck
+                        //opponent searches opponent deck for a number of cards and places them on top of the deck
                         "opponent":0
                     },
                     "shuffle":{
-                        "active":false
+                        "active":false,
+                        "self":false,
+                        "opponent":false
                     },
                     "counterSpell":{
                         "active":false,
@@ -177,6 +204,7 @@ class Effect{
                          * "SCORERATIOCHECK": checks the score ratio of (target team)/(other team)
                          * "DISCARD":checks whether target has discarded a card. Gives 1 if true and 0 if false
                          * "CARDMAPPICKED":checks whether target has picked the map that this card was placed on. Gives 1 if true and 0 if false
+                         * "EXODIA": checks whether an "exodia" effect with "number":0 and an "exodia" effect with "number":1 have already been activated. Gives 1 if true and 0 if false
                          * 
                          * 
                          * POSSIBLE NEGATIONS:
@@ -215,6 +243,19 @@ class Effect{
                     "pickban":{
                         //whether self team can pick a banned map
                         "active":false
+                    },
+                    "markMapPlayed":{
+                        //marks a map(s) as played
+                        "active":false,
+                        /**
+                         * POSSIBLE KEYWORDS:
+                         * "CURRENT" - marks the current map as played
+                         * "RANDOM" - marks a random unplayed map as played
+                         * "CHOOSE" - the team may choose an unplayed map to mark as played
+                         *
+                         * KEYWORDS ARE RESOLVED IN ORDER OF INPUT, BUT "CURRENT" CANNOT BE IN A LIST WITH OTHER KEYWORDS
+                         **/
+                        "maps":[]
                     },
                     "changePickOrder":{
                         "active": false,
