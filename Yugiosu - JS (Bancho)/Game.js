@@ -26,7 +26,7 @@ class Game{
      * @param {Card[]} cardList2 list of cards for the second team
      * @param {{code:string, id:int}[]} mappool the list of maps in the pool
      */
-    constructor(startDraw, handSize, team1, cardList1, team2, cardList2, mappool){
+    constructor(startDraw, handSize, team1, cardList1, team2, cardList2, mappool, banCount){
 
         this.phase = PHASE.PREP;
         this.startDraw = startDraw;
@@ -34,6 +34,12 @@ class Game{
         this.currentPlayer = null;
         this.mappool = new Mappool(mappool);
         this.cards = {};
+        this.banCount = banCount;
+        this.bans = {
+            "BLUE":[],
+            "RED":[]
+        }
+
         this.toggle = {
             "HD":false,
             "HR":false,
@@ -67,10 +73,9 @@ class Game{
         this.team2Roll = -1;
         this.rollWinner = -1;
 
-        this.team1WantsWarmups = -1;
-        this.team1PlayedWarmups = false;
-        this.team2WantsWarmups = -1;
-        this.team2PlayedWarmups = false;
+        this.teamWantsWarmups = [-1, -1];
+        this.teamPlayedWarmups = [false, false];
+        this.currentHostTeam = -1;
     }
 
     /**
@@ -150,6 +155,10 @@ class Game{
         this.team2Roll = -1;
         this.team1Roller = '';
         this.team2Roller = '';
+    }
+
+    bansDone(){
+        return false;
     }
 
     /**
