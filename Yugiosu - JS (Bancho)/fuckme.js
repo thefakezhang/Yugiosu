@@ -16,7 +16,7 @@ const rl = readline.createInterface({
 
 
 const BLUE = 0, RED = 1;
-const config = require('./config.json');
+const config = require('../../config.json');
 const pool = require('./pool.json');
 const match = require('./match.json');
 const wait = (time) => {
