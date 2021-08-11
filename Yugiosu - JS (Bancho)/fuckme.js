@@ -16,6 +16,7 @@ const rl = readline.createInterface({
 
 
 const BLUE = 0, RED = 1;
+const TEAM1 = 0, TEAM2 = 1, OTHER = 2;
 const config = require('../../config.json');
 const pool = require('./pool.json');
 const match = require('./match.json');
@@ -33,11 +34,11 @@ const api = new nodesu.Client(config.apiKey);
 
 let channel; 
 let lobby;
-
-let playersInLobby = [0,0];
+let attemptedHost;
+let playersInLobby = [[],[],[]]; //team 1 players, team 2 players, guests
 
 match.winningScore = Math.ceil(match.BO/2);
-match.score = [0, 0, 0]; //team 1 players, team 2 players, guests
+match.score = [0, 0]; 
 match.picking = 0;
 
 let auto = false;
@@ -108,19 +109,19 @@ async function init() {
       console.log(chalk.yellow(`Player ${id} has joined!`));
   
       // Attempt to auto-assign team
-      if (match.teams[BLUE].members.includes(id)) {
+      if (match.teams[TEAM1].members.includes(id)) {
         lobby.changeTeam(obj.player, "Blue");
-        playersInLobby[BLUE]++;
-      } else if (match.teams[RED].members.includes(id)) {
+        playersInLobby[TEAM1].push(id);
+      } else if (match.teams[TEAM2].members.includes(id)) {
         lobby.changeTeam(obj.player, "Red");
-        playersInLobby[RED]++;
+        playersInLobby[TEAM2].push(id);
       } else {
         console.log(chalk.red("Warning! Couldn't figure out team"));
-        playersInLobby[2]++;
+        playersInLobby[OTHER].push(id);
       }
   
       if (obj.player.user.isClient()) {
-        let p = lobby.setHost("#" + obj.player.user.id);
+        //let p = lobby.setHost("#" + obj.player.user.id);
       }
      });
 
@@ -130,51 +131,42 @@ async function init() {
       const id = obj.user.id;
       //console.log(`object keys for leaving player: ${Object.keys(obj.user)}`);
 
-      if (match.teams[BLUE].members.includes(id)) {
-        playersInLobby[BLUE]--;
-      } else if (match.teams[RED].members.includes(id)) {
-        playersInLobby[RED]--;
+      if (match.teams[TEAM1].members.includes(id)) {
+        playersInLobby[TEAM1].splice(playersInLobby[TEAM1].indexOf(id), 1);
+      } else if (match.teams[TEAM2].members.includes(id)) {
+        playersInLobby[TEAM2].splice(playersInLobby[TEAM2].indexOf(id), 1);
       } else {
-        playersInLobby[2]--;
+        playersInLobby[OTHER].splice(playersInLobby[OTHER].indexOf(id), 1);
       }
 
       switch(game.phase){
         case Game.PHASE.WARMUP: //if a player leaves during warmups phase while they were the host, it could cause some trouble. We try to manage it here
-          if(!match.teams[game.currentHostTeam].members.includes(lobby.getHost().user.id)){ //if the new host is not on the team that is currently playing warmups
-            if(playersInLobby[game.currentHostTeam] > 0){
-              for(let id of match.teams[game.currentHostTeam].members){ //change the host back to a member of the currentHostTeam
-                let p = lobby.setHost("#" + id);
-                wait(7000); // waits 3 seconds for the host to change
-                console.log(`${lobby.getHost().user.id}`);
-                if(lobby.getHost().user.id == id){
-                  channel.sendMessage("host changed back to the current team playing warmups!");
-                  break;
-                }
-              }
+          if(lobby.getHost() == undefined || (game.currentHostTeam != -1 
+          && !match.teams[game.currentHostTeam].members.includes(lobby.getHost().user.id))){ //if the new host is not on the team that is currently playing warmups
+            if(playersInLobby[game.currentHostTeam].length > 0){
+
+              attemptedHost = playersInLobby[game.currentHostTeam][0];
+              game.teamPlayedWarmups[game.currentHostTeam] = true;
+              lobby.setHost("#" + playersInLobby[game.currentHostTeam][0]);
+
             }else{ //...there are no players from the team playing warmups in the lobby...?
               channel.sendMessage("it seems like... there's no one from the team currently playing warmups in the lobby...?");
               channel.sendMessage("I guess we're skipping their warmups...");
               game.currentHostTeam = 1-game.currentHostTeam;
 
               if(game.teamWantsWarmups[game.currentHostTeam] && !game.teamPlayedWarmups[game.currentHostTeam]){ //if the other team wants warmups and hasn't played them
-                for(let id of match.teams[game.currentHostTeam].members){ //change the host to a member of the other team
-                  let p = lobby.setHost("#" + id);
-                  console.log()
-                  wait(7000); // waits 3 seconds for the host to change 
-                  console.log(`${lobby.getHost().user.id}`);
-                  if(lobby.getHost().user.id == id){
-                    game.teamPlayedWarmups[game.currentHostTeam] = true;
-                    channel.sendMessage("!mp timer 90");
-                    channel.sendMessage("host changed!");
-                    break;
-                  }
-                }
-    
+                
+                attemptedHost = playersInLobby[game.currentHostTeam][0];
+                game.teamPlayedWarmups[game.currentHostTeam] = true;
+                lobby.setHost("#" + playersInLobby[game.currentHostTeam][0]);
+                channel.sendMessage("!mp timer 90");
+                
               }else{
                 game.changePhase(Game.PHASE.BANS);
                 channel.sendMessage("moving onto the ban stage!");
                 channel.sendMessage("!mp timer 90");
-                channel.sendMessage(`team ${game.rollWinner}, please pick a map to ban!`);
+                channel.sendMessage("!mp clearhost");
+                channel.sendMessage(`team ${game.rollWinner + 1}, please pick a map to ban!`);
               }
 
             } 
@@ -192,24 +184,19 @@ async function init() {
       switch(game.phase){
         case Game.PHASE.WARMUP:
           console.log(`currenthost: ${game.currentHostTeam}, other team wants warmups: ${game.teamWantsWarmups[1 - game.currentHostTeam]}`);
-          console.log(`other team played warmups: ${game.teamPlayedWarmups[1 - game.currentHostTeam]}, other team count: ${playersInLobby[1 - game.currentHostTeam]}`)
-          if(game.teamWantsWarmups[1 - game.currentHostTeam] && !game.teamPlayedWarmups[1 - game.currentHostTeam] && playersInLobby[1 - game.currentHostTeam] > 0){ //if the other team wants warmups and hasn't played yet
+          console.log(`other team played warmups: ${game.teamPlayedWarmups[1 - game.currentHostTeam]}, other team: ${playersInLobby[1 - game.currentHostTeam]}`)
+          if(game.teamWantsWarmups[1 - game.currentHostTeam] && !game.teamPlayedWarmups[1 - game.currentHostTeam] 
+            && playersInLobby[1 - game.currentHostTeam].length > 0){ //if the other team wants warmups and hasn't played yet
 
             game.currentHostTeam = 1 - game.currentHostTeam; 
-            channel.sendMessage(`changing host...`);
-            for(let id of match.teams[game.currentHostTeam].members){
-              let p = lobby.setHost("#" + id);
-              wait(7000); // waits 3 seconds for the host to change
-              console.log(`${lobby.getHost().user.id}`);
-              if(lobby.getHost().user.id == id){
-                game.teamPlayedWarmups[game.currentHostTeam] = true;
-                channel.sendMessage("you have 90 seconds to pick a map!");
-                channel.sendMessage("!mp timer 90");
-                break;
-              }
-            }
+            attemptedHost = playersInLobby[game.currentHostTeam][0];
+            game.teamPlayedWarmups[game.currentHostTeam] = true;
+            lobby.setHost("#" + playersInLobby[game.currentHostTeam][0]);
+            channel.sendMessage("!mp timer 90");
+          
           }else{
             channel.sendMessage("Warmup phase complete! Moving onto the bans phase!");
+            channel.sendMessage("!mp clearhost");
             game.changePhase(Game.PHASE.BANS);
             channel.sendMessage("!mp timer 90");
             channel.sendMessage(`team ${game.rollWinner}, please pick a map to ban!`);
@@ -259,6 +246,13 @@ async function init() {
 
           
     });
+
+    lobby.on("host", (obj) => {
+      let id = (obj === null || obj === undefined) ? null : obj.user.id;
+      if(attemptedHost != null && attemptedHost === id){
+        attemptedHost = null; //stub
+      }
+    })
 
     
   
@@ -440,7 +434,7 @@ async function init() {
 
           switch(m[0].toLowerCase()){
             case 'yes':
-              console.log(`message user id: ${msg.user.id}`);
+              //console.log(`message user id: ${msg.user.id}`);
               if(match.teams[0].members.includes(msg.user.id) && game.teamWantsWarmups[0] == -1){ //team 1 said yes as the first response
                 game.teamWantsWarmups[0] = 1;
               }else if(match.teams[1].members.includes(msg.user.id) && game.teamWantsWarmups[1] == -1){ //team 2 said yes as the first response
@@ -454,31 +448,23 @@ async function init() {
 
                 channel.sendMessage("changing host...");
                 if(game.teamWantsWarmups[game.rollWinner] == 1){
-                  for(let id of match.teams[game.rollWinner].members){
-                    let p = lobby.setHost("#" + id);
-                    wait(7000); // waits 3 seconds for the host to change
-                    console.log(`${lobby.getHost().user.id}`);
-                    if(lobby.getHost().user.id == id){
-                      game.teamPlayedWarmups[game.rollWinner] = true;
-                      game.currentHostTeam = game.rollWinner;
-                      channel.sendMessage("you have 90 seconds to pick a map!");
-                      channel.sendMessage("!mp timer 90");
-                      break;
-                    }
-                  }
+
+                  attemptedHost = playersInLobby[game.rollWinner][0];
+                  game.currentHostTeam = game.rollWinner;
+                  game.teamPlayedWarmups[game.rollWinner] = true;
+                  lobby.setHost("#" + playersInLobby[game.rollWinner][0]); 
+                  channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                  channel.sendMessage("!mp timer 90");
+                  
                 }else{  
-                  for(let id of match.teams[1 - game.rollWinner].members){
-                    let p = lobby.setHost("#" + id);
-                    wait(7000); // waits 3 seconds for the host to change
-                    console.log(`${lobby.getHost().user.id}`);
-                    if(lobby.getHost().user.id == id){
-                      game.teamPlayedWarmups[1 - game.rollWinner] = true;
-                      game.currentHostTeam = 1 - game.rollWinner;
-                      channel.sendMessage("you have 90 seconds to pick a map!");
-                      channel.sendMessage("!mp timer 90");
-                      break;
-                    }
-                  }
+      
+                  attemptedHost = playersInLobby[1 - game.rollWinner][0];
+                  game.currentHostTeam = 1 - game.rollWinner;
+                  game.teamPlayedWarmups[1 - game.rollWinner] = true;
+                  lobby.setHost("#" + playersInLobby[1 - game.rollWinner][0]); 
+                  channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                  channel.sendMessage("!mp timer 90");
+                  
                 }
               }
               break;
@@ -496,34 +482,23 @@ async function init() {
                 channel.sendMessage("!mp aborttimer");    
 
                 if(game.teamWantsWarmups[game.rollWinner] == 1){
-                  channel.sendMessage("changing host...");
-                  for(let id of match.teams[game.rollWinner].members){
-                    let p = lobby.setHost("#" + id);
-                    wait(7000); // waits 3 seconds for the host to change
-                    console.log(`${lobby.getHost().user.id}`);
-                    if(lobby.getHost().user.id == id){
-                      game.teamPlayedWarmups[game.rollWinner] = true;
-                      game.currentHostTeam = game.rollWinner;
-                      channel.sendMessage("you have 90 seconds to pick a map!");
-                      channel.sendMessage("!mp timer 90");
-                      break;
-                    }
-                  }
+
+                  attemptedHost = playersInLobby[game.rollWinner][0];
+                  game.currentHostTeam = game.rollWinner;
+                  game.teamPlayedWarmups[game.rollWinner] = true;
+                  lobby.setHost("#" + playersInLobby[game.rollWinner][0]); 
+                  channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                  channel.sendMessage("!mp timer 90");
+
                 }else if(game.teamWantsWarmups[1 - game.rollWinner] == 1){  
-                  channel.sendMessage("changing host...");
-                  for(let id of match.teams[1 - game.rollWinner].members){
-                    let p = lobby.setHost("#" + id);
-                    wait(7000); // waits 3 seconds for the host to change
-                    console.log(`${lobby.getHost().user.id}`);
-                    //console.log(`${}`)
-                    if(lobby.getHost().user.id == id){
-                      game.teamPlayedWarmups[1 - game.rollWinner] = true;
-                      game.currentHostTeam = 1 - game.rollWinner;
-                      channel.sendMessage("you have 90 seconds to pick a map!");
-                      channel.sendMessage("!mp timer 90");
-                      break;
-                    }
-                  }
+
+                  attemptedHost = playersInLobby[1 - game.rollWinner][0];
+                  game.currentHostTeam = 1 - game.rollWinner;
+                  game.teamPlayedWarmups[1 - game.rollWinner] = true;
+                  lobby.setHost("#" + playersInLobby[1 - game.rollWinner][0]); 
+                  channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                  channel.sendMessage("!mp timer 90");
+
                 }else{
                   channel.sendMessage("no one wants warmups D:");
                   channel.sendMessage("moving into the bans phase");
@@ -532,8 +507,10 @@ async function init() {
                   channel.sendMessage(`team ${game.rollWinner}, please pick a map to ban!`);
                 }
               }
-            case 'Countdown':
+            case 'countdown':
               if(m[1] === 'finished'){
+                //console.log(`team 1: ${game.teamPlayedWarmups[0]}, team 2: ${game.teamPlayedWarmups[1]}`)
+
                 if(game.teamWantsWarmups[0] == -1 || game.teamWantsWarmups[1] == -1){ //one of the teams didn't decide to play warmups in time
                   //default to no
 
@@ -548,52 +525,41 @@ async function init() {
                   }
 
                   if(game.teamWantsWarmups[game.rollWinner] == 1){
-                    channel.sendMessage("changing host...");
-                    for(let id of match.teams[game.rollWinner].members){
-                      let p = lobby.setHost("#" + id);
-                      wait(7000); // waits 3 seconds for the host to change
-                      console.log(`${lobby.getHost().user.id}`);
+                    
+                    attemptedHost = playersInLobby[game.rollWinner][0];
+                    game.currentHostTeam = game.rollWinner;
+                    game.teamPlayedWarmups[game.rollWinner] = true;
+                    lobby.setHost("#" + playersInLobby[game.rollWinner][0]); 
+                    channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                    channel.sendMessage("!mp timer 90");
 
-                      if(lobby.getHost().user.id == id){
-                        game.teamPlayedWarmups[game.rollWinner] = true;
-                        game.currentHostTeam = game.rollWinner;
-                        channel.sendMessage("you have 90 seconds to pick a map!");
-                        channel.sendMessage("!mp timer 90");
-                        break;
-                      }
-                    }
-                  }else if(game.teamWantsWarmups[1 - game.rollWinner] == 1){  
-                    channel.sendMessage("changing host...");
-                    for(let id of match.teams[1 - game.rollWinner].members){
-                      let p = lobby.setHost("#" + id);
-                      wait(7000); // waits 3 seconds for the host to change
-                      console.log(`${lobby.getHost().user.id}`);
+                  }else if(game.teamWantsWarmups[1 - game.rollWinner] == 1){ 
 
-                      if(lobby.getHost().user.id == id){
-                        game.teamPlayedWarmups[1 - game.rollWinner] = true;
-                        game.currentHostTeam = 1 - game.rollWinner;
-                        channel.sendMessage("you have 90 seconds to pick a map!");
-                        channel.sendMessage("!mp timer 90");
-                        break;
-                      }
-                    }
+                    attemptedHost = playersInLobby[1 - game.rollWinner][0];
+                    game.currentHostTeam = 1 - game.rollWinner;
+                    game.teamPlayedWarmups[1 - game.rollWinner] = true;
+                    lobby.setHost("#" + playersInLobby[1 - game.rollWinner][0]); 
+                    channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                    channel.sendMessage("!mp timer 90");
+
                   }else{
                     channel.sendMessage("no one wants warmups D:");
                     channel.sendMessage("moving into the game phase");
+                    channel.sendMessage("!mp clearhost");
                     game.changePhase(Game.PHASE.CARDS);
                   }
-                }
-
-                if(game.teamPlayedWarmups[0] || game.teamPlayedWarmups[1]){ //one of the teams didn't pick a map in time
+                }else if(game.teamPlayedWarmups[0] || game.teamPlayedWarmups[1]){ //one of the teams didn't pick a map in time
+                  channel.sendMessage("Time is up! Starting the map!");
                   lobby.startMatch(10);
                 }
+               
               }
               
           }
           break;
         case Game.PHASE.BANS:
           //should not require commands, just map picks
-          while(!game.bansDone()){
+          if(!game.bansDone()){
 
           }
           break;
@@ -634,8 +600,8 @@ async function init() {
   async function close() {
   console.log(chalk.cyan("Closing..."));
   rl.close();
-  await lobby.closeLobby();
-  await client.disconnect();
+  lobby.closeLobby();
+  client.disconnect();
   console.log(chalk.cyan("Closed."));
 }
 
