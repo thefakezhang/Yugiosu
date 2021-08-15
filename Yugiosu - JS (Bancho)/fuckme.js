@@ -162,11 +162,12 @@ async function init() {
                 channel.sendMessage("!mp timer 90");
                 
               }else{
-                game.changePhase(Game.PHASE.BANS);
                 channel.sendMessage("moving onto the ban stage!");
                 channel.sendMessage("!mp timer 90");
                 channel.sendMessage("!mp clearhost");
-                channel.sendMessage(`team ${game.rollWinner + 1}, please pick a map to ban!`);
+                game.currentHostTeam = -1;
+                channel.sendMessage(`team ${game.rollWinner+1}, please say \'ban first\' or \'ban second\' to indicate which ban order you prefer!`);
+                game.changePhase(Game.PHASE.BANS);
               }
 
             } 
@@ -197,9 +198,10 @@ async function init() {
           }else{
             channel.sendMessage("Warmup phase complete! Moving onto the bans phase!");
             channel.sendMessage("!mp clearhost");
-            game.changePhase(Game.PHASE.BANS);
+            game.currentHostTeam = -1;
             channel.sendMessage("!mp timer 90");
-            channel.sendMessage(`team ${game.rollWinner}, please pick a map to ban!`);
+            channel.sendMessage(`team ${game.rollWinner+1}, please say \'ban first\' or \'ban second\' to indicate which ban order you prefer!`);
+            game.changePhase(Game.PHASE.BANS);
           }
           break;
 
@@ -404,29 +406,32 @@ async function init() {
               break;  
             
             case 'Countdown':
-              if(m[1] === 'finished'){ //if one or both teams don't finish rolling by the countdown
-                channel.sendMessage(`the timer has finished! If a team hasn't rolled yet, their roll will default to 0`);
-                if(game.team1Roll == -1 && game.team2Roll == -1){ //in the event that neither team rolled...
-                  channel.sendMessage(`it seems like neither team has rolled... Now randomly assigning winner...`)
-                  game.rollWinner = Math.floor(Math.random() * 2);
+              if(msg.user.ircUsername == 'BanchoBot'){
+                if(m[1] === 'finished'){ //if one or both teams don't finish rolling by the countdown
+                  channel.sendMessage(`the timer has finished! If a team hasn't rolled yet, their roll will default to 0`);
+                  if(game.team1Roll == -1 && game.team2Roll == -1){ //in the event that neither team rolled...
+                    channel.sendMessage(`it seems like neither team has rolled... Now randomly assigning winner...`)
+                    game.rollWinner = Math.floor(Math.random() * 2);
+                  }
+  
+                  if(game.team1Roll == -1){ //if ONLY team 1 didn't roll
+                    game.team1Roll = 0;
+                    game.compareRolls();
+                  }
+  
+                  if(game.team2Roll == -1){ //if ONLY team 2 didn't roll
+                    game.team2Roll = 0;
+                    game.compareRolls();
+                  }
+  
+                  channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
+                  game.changePhase(Game.PHASE.WARMUP);
+                  channel.sendMessage("going into warmups phase...");
+                  channel.sendMessage("Would each team like to play a warmup? Please respond with \'yes\' or \'no\'.");
+                  channel.sendMessage("!mp timer 45");
                 }
-
-                if(game.team1Roll == -1){ //if ONLY team 1 didn't roll
-                  game.team1Roll = 0;
-                  game.compareRolls();
-                }
-
-                if(game.team2Roll == -1){ //if ONLY team 2 didn't roll
-                  game.team2Roll = 0;
-                  game.compareRolls();
-                }
-
-                channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
-                game.changePhase(Game.PHASE.WARMUP);
-                channel.sendMessage("going into warmups phase...");
-                channel.sendMessage("Would each team like to play a warmup? Please respond with \'yes\' or \'no\'.");
-                channel.sendMessage("!mp timer 45");
               }
+              
           }
           break;
         case Game.PHASE.WARMUP:
@@ -502,65 +507,156 @@ async function init() {
                 }else{
                   channel.sendMessage("no one wants warmups D:");
                   channel.sendMessage("moving into the bans phase");
-                  game.changePhase(Game.PHASE.BANS);
                   channel.sendMessage("!mp timer 90");
-                  channel.sendMessage(`team ${game.rollWinner}, please pick a map to ban!`);
+                  channel.sendMessage(`team ${game.rollWinner+1}, please say \'ban first\' or \'ban second\' to indicate which ban order you prefer!`);
+                  game.changePhase(Game.PHASE.BANS);
                 }
               }
             case 'countdown':
-              if(m[1] === 'finished'){
-                //console.log(`team 1: ${game.teamPlayedWarmups[0]}, team 2: ${game.teamPlayedWarmups[1]}`)
-
-                if(game.teamWantsWarmups[0] == -1 || game.teamWantsWarmups[1] == -1){ //one of the teams didn't decide to play warmups in time
-                  //default to no
-
-                  channel.sendMessage("one or both of the teams did not decide in time");
-
-                  if(game.teamWantsWarmups[0] == -1){
-                    game.teamWantsWarmups[0] = 0;
+              if(msg.user.ircUsername == 'BanchoBot'){
+                if(m[1] === 'finished'){
+                  //console.log(`team 1: ${game.teamPlayedWarmups[0]}, team 2: ${game.teamPlayedWarmups[1]}`)
+  
+                  if(game.teamWantsWarmups[0] == -1 || game.teamWantsWarmups[1] == -1){ //one of the teams didn't decide to play warmups in time
+                    //default to no
+  
+                    channel.sendMessage("one or both of the teams did not decide in time");
+  
+                    if(game.teamWantsWarmups[0] == -1){
+                      game.teamWantsWarmups[0] = 0;
+                    }
+  
+                    if(game.teamWantsWarmups[1] == -1){
+                      game.teamWantsWarmups[1] = 0;
+                    }
+  
+                    if(game.teamWantsWarmups[game.rollWinner] == 1){
+                      
+                      attemptedHost = playersInLobby[game.rollWinner][0];
+                      game.currentHostTeam = game.rollWinner;
+                      game.teamPlayedWarmups[game.rollWinner] = true;
+                      lobby.setHost("#" + playersInLobby[game.rollWinner][0]); 
+                      channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                      channel.sendMessage("!mp timer 90");
+  
+                    }else if(game.teamWantsWarmups[1 - game.rollWinner] == 1){ 
+  
+                      attemptedHost = playersInLobby[1 - game.rollWinner][0];
+                      game.currentHostTeam = 1 - game.rollWinner;
+                      game.teamPlayedWarmups[1 - game.rollWinner] = true;
+                      lobby.setHost("#" + playersInLobby[1 - game.rollWinner][0]); 
+                      channel.sendMessage("You have 90 seconds to pick a map for warmups!");
+                      channel.sendMessage("!mp timer 90");
+  
+                    }else{
+                      channel.sendMessage("no one wants warmups D:");
+                      channel.sendMessage("moving into the ban phase");
+                      channel.sendMessage("!mp clearhost");
+                      game.currentHostTeam = -1;
+                      channel.sendMessage("!mp timer 90");
+                      channel.sendMessage(`team ${game.rollWinner+1}, please say \'ban first\' or \'ban second\' to indicate which ban order you prefer!`);
+                      game.changePhase(Game.PHASE.BANS);
+                    }
+                  }else if(game.teamPlayedWarmups[0] || game.teamPlayedWarmups[1]){ //one of the teams didn't pick a map in time
+                    channel.sendMessage("Time is up! Starting the map!");
+                    lobby.startMatch(10);
                   }
-
-                  if(game.teamWantsWarmups[1] == -1){
-                    game.teamWantsWarmups[1] = 0;
-                  }
-
-                  if(game.teamWantsWarmups[game.rollWinner] == 1){
-                    
-                    attemptedHost = playersInLobby[game.rollWinner][0];
-                    game.currentHostTeam = game.rollWinner;
-                    game.teamPlayedWarmups[game.rollWinner] = true;
-                    lobby.setHost("#" + playersInLobby[game.rollWinner][0]); 
-                    channel.sendMessage("You have 90 seconds to pick a map for warmups!");
-                    channel.sendMessage("!mp timer 90");
-
-                  }else if(game.teamWantsWarmups[1 - game.rollWinner] == 1){ 
-
-                    attemptedHost = playersInLobby[1 - game.rollWinner][0];
-                    game.currentHostTeam = 1 - game.rollWinner;
-                    game.teamPlayedWarmups[1 - game.rollWinner] = true;
-                    lobby.setHost("#" + playersInLobby[1 - game.rollWinner][0]); 
-                    channel.sendMessage("You have 90 seconds to pick a map for warmups!");
-                    channel.sendMessage("!mp timer 90");
-
-                  }else{
-                    channel.sendMessage("no one wants warmups D:");
-                    channel.sendMessage("moving into the game phase");
-                    channel.sendMessage("!mp clearhost");
-                    game.changePhase(Game.PHASE.CARDS);
-                  }
-                }else if(game.teamPlayedWarmups[0] || game.teamPlayedWarmups[1]){ //one of the teams didn't pick a map in time
-                  channel.sendMessage("Time is up! Starting the map!");
-                  lobby.startMatch(10);
+                 
                 }
-               
               }
+              
               
           }
           break;
         case Game.PHASE.BANS:
-          //should not require commands, just map picks
-          if(!game.bansDone()){
+          //console.log(m);
+          //console.log(`$game.banning: ${game.banning}`);
+          switch(m[0].toLowerCase()){
+            case 'ban':
+              //only runs right before players start picking bans
+              if(!game.banning){
+                if(match.teams[game.rollWinner].members.includes(msg.user.id)){
+                  if(m[1].toLowerCase() === 'first'){
+                    game.startBans(game.rollWinner);
+                    channel.sendMessage(`!mp timer 120`);
+                    channel.sendMessage(`team ${game.currentBanTeam+1}! Please say the name or id of the map you want to ban! \'NM1\' or \'1492011\' for example!`);
+                  }else if(m[1].toLowerCase() === 'second'){
+                    game.startBans(1 - game.rollWinner);
+                    channel.sendMessage(`!mp timer 120`);
+                    channel.sendMessage(`team ${game.currentBanTeam+1}! Please say the name or id of the map you want to ban! \'NM1\' or \'1492011\' for example!`);
+                  }else{
+                    channel.sendMessage(`unable to parse your input, please respond with either \'ban first\' or \'ban second\'!`);
+                  }
+                }
+              }
 
+            case 'countdown': 
+              if(msg.user.ircUsername == 'BanchoBot'){
+                if(m[1] === 'finished'){
+                  if(!game.banning){ //if a team doesnt pick whether to ban first or second before timer
+                    channel.sendMessage(`team ${game.rollWinner + 1} did not choose the ban order in time! Ban order being assigned randomly...`);
+                    game.startBans(Math.floor(Math.random() * 2));
+                    channel.sendMessage(`the first team to ban has been randomly decided to be team ${game.currentBanTeam+1}!`);
+                    channel.sendMessage(`!mp timer 120`);
+                    channel.sendMessage(`Please say the name or id of the map you want to ban! \'NM1\' or \'1492011\' for example!`);
+                  }else{ //if a player is currently banning but doesn't pick in time
+                    channel.sendMessage(`team ${game.currentBanTeam + 1} did not choose their ban in time! Their ban will be voided!`);
+                    const currentBanTeam = game.currentBanTeam == 0? `BLUE` : 'RED';
+                    game.bans[currentBanTeam].push('NA');
+                    game.currentBanTeam = 1 - game.currentBanTeam;
+                    
+                    if(!game.bansDone()){
+                      channel.sendMessage(`it is now team ${game.currentBanTeam + 1}'s turn to ban!`);
+                      channel.sendMessage(`!mp timer 120`);
+                    }else{
+                      channel.sendMessage(`ban phase is now over! Moving onto the main phase!!`);
+                      game.changePhase(Game.PHASE.CARDS);
+                    }
+  
+                  }
+                }
+              } 
+          }
+
+          //should not require commands, just map picks. Only activates when players are actually banning maps
+          if(!game.bansDone()){
+            if(game.banning){
+              if(match.teams[game.currentBanTeam].members.includes(msg.user.id)){
+
+                [validMap, codeResult, result] = parseForBeatmap(m[0], force = false);
+                if(validMap){
+                  // Prioritize matches to map code before checking by name
+                  let map;
+                  if (codeResult.length === 1) {
+                    map = codeResult[0];
+                  }  else if(result.length === 1) {
+                    map = result[0];
+                  } else {
+                    channel.sendMessage(`This map doesn't exist! Please pick another map!`);
+                    return;
+                  }
+  
+                  const currentBanTeam = game.currentBanTeam == 0? `BLUE` : 'RED';
+  
+                  if(game.bans['BLUE'].includes(map.code) || game.bans['RED'].includes(map.code)){
+                    channel.sendMessage(`That map has already been banned! Please pick another map!`);
+                  }else{
+                    game.bans[currentBanTeam].push(map.code);
+                    channel.sendMessage(`team ${game.currentBanTeam + 1} has banned ${map.code}!`);
+                    game.currentBanTeam = 1 - game.currentBanTeam;
+                    channel.sendMessage(`it is now team ${game.currentBanTeam + 1}'s turn to ban!`);
+                    channel.sendMessage(`!mp timer 120`);
+                  }
+  
+                }else if(m.length == 1){
+                  channel.sendMessage(`that isn't a valid map! Please type the name or id of the map you want to ban!`);
+                }
+              }
+            }
+            
+          }else{ //bans are done
+            channel.sendMessage(`Ban phase is now done! Moving onto the main phase!!`);
+            channel.sendMessage(`!mp aborttimer`);
           }
           break;
         case Game.PHASE.CARDS:
@@ -605,22 +701,33 @@ async function init() {
   console.log(chalk.cyan("Closed."));
 }
 
-function setBeatmap(input, force=false) { 
-    let isCode = !isNaN(input.slice(-1)); //is a numbered map code like NM2, DT1, etc.
-    if (force || input.length > 4 || (input.length > 2 && isCode)) {
+function parseForBeatmap(input, force=false){
+  let isCode = !isNaN(input.slice(-1)); //is a numbered map code like NM2, DT1, etc.
+  
+  if (force || input.length > 4 || (input.length > 2 && isCode)) {
       
-      const codeResult = pool.filter((map) => {
-        return map.code.toLowerCase() === input.toLowerCase();
-      });
+    const codeResult = pool.filter((map) => { // 
+      return map.code.toLowerCase() === input.toLowerCase();
+    });
+
+    //checks if it's a beatmap ID (basically checks if input is integers only)
+    const result = pool.filter((map) => {
+      if(input.match(/^[0-9]+$/) != null){
+          return map.id.toLowerCase().includes(input.toLowerCase());
+      }
+      
+    });
+
+    return [true, codeResult, result];
+  }
+    
+  return [false, null, null];
+}
+
+function setBeatmap(input, force=false) { 
+    const [validMap, codeResult, result] = parseForBeatmap(input, force);
   
-      //checks if it's a beatmap ID (basically checks if input is integers only)
-      const result = pool.filter((map) => {
-        if(input.match(/^[0-9]+$/) != null){
-            return map.id.toLowerCase().includes(input.toLowerCase());
-        }
-        
-      });
-  
+    if (validMap) {
       // Prioritize matches to map code before checking by name
       let map;
       if (codeResult.length === 1) {
@@ -684,7 +791,6 @@ function setBeatmap(input, force=false) {
       }else{
           channel.sendMessage(`${map.code} has been picked before! Please try another map!`);
       }
-      
     }
   }
 

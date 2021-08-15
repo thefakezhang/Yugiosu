@@ -2,10 +2,9 @@
     "tournament":"Yugiosu",
     "BO":159,
     "bans":2,
-    "banOrder":"ABBA",
     "teams": [
         {"name": "fooooooood", "members": [3162076]},
-        {"name": "period + banana", "members": [2916205, 1284243]}
+        {"name": "period + syringes", "members": [2916205, 11740073]}
       ],
     "referees": [3162076, 2916205, 1284243, 4209818, 9467252],
     "streamers": [3162076],

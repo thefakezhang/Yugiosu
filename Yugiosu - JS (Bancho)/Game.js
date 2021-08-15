@@ -39,6 +39,8 @@ class Game{
             "BLUE":[],
             "RED":[]
         }
+        this.banning = false;
+        this.currentBanTeam = -1;
 
         this.toggle = {
             "HD":false,
@@ -157,8 +159,13 @@ class Game{
         this.team2Roller = '';
     }
 
+    startBans(teamBanning){
+        this.banning = true;
+        this.currentBanTeam = teamBanning;
+    }
+
     bansDone(){
-        return false;
+        return this.bans['BLUE'].length == this.banCount && this.bans['RED'].length == this.banCount;
     }
 
     /**
