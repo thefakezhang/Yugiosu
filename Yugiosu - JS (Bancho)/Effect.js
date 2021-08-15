@@ -30,10 +30,13 @@ class Effect{
                 "effect":{
                     "takeInput": {
                         "active": false,
+                        //Possible choosers are "SELF" and "OPPONENT"
+                        "chooser": "SELF",
                         //Possible types are:
-                        //"MOD",
+                        //"MOD","HANDINDEX","PLAYERSELFTEAM","PLAYEROPPONENTTEAM","MAP"
+                        //"HANDINDEX" can only refer to the chooser's hand.
                         "type": "",
-                        //A new effect object which has access to the solicited input
+                        //New effect objects which implicitly access the solicited input
                         //for effects that expect input
                         "properties": []
                     },
@@ -43,18 +46,45 @@ class Effect{
                         "self":false,
                         "opponent":false
                     },
+                    "addCardInput":{
+                        "active":false,
+                        //adds a copy of the card at "HANDINDEX" specified by "takeInput"
+                        //if no card was specified then add nothing
+                        "self":false,
+                        "opponent":false
+                    },
+                    "removeCardInput":{
+                        "active":false,
+                        //removes the card at "HANDINDEX" specified by "takeInput"
+                        //if no card was specified then remove nothing
+                        "self":false,
+                        "opponent":false
+                    },
+                    "forceMemberInput":{
+                        "active":false,
+                        //forces the member at either "PLAYERSELFTEAM" or "PLAYEROPPONENTTEAM" specified by "takeInput"
+                        //to play the next "count" maps
+                        //if "count"=-1, then the player chosen is forced to play all maps from then on
+                        "count":0
+                    },
+                    "viewTrapInput":{
+                        "active":false,
+                        //views and reports the trap card at "MAP" specified by "takeInput"
+                    },
                     "modToggle":{
                         //toggles mods
                         "active":false,
+                        "self":false,
+                        "opponent":false,
                         "mod":[]
                     },
                     "wincon":{
-                        //determines win condition
+                        //sets win condition
                         "active":false,
                         "wincon":"v2"
                     },
                     "teamSize":{
-                        //determines team sizes
+                        //sets team sizes
                         //0 = full team
                         "active":false,
                         "self": 0,
@@ -72,9 +102,9 @@ class Effect{
                          * ex. ["RANDOM", "CHOOSE"] -> one opposing member is randomly chosen, and then self picks one player from the remaining members of the opponent team
                          *     ["CHOOSE", "RANDOM"] -> self picks one player from the opponent team, and then one member is randomly chosen from the remaining members of the opponent team 
                          */
-                        //self chooses from OPPOSING team
+                        //"CHOOSE" is chosen by the OPPOSING team
                         "self": [],
-                        //opponent chooses from SELF team
+                        //"CHOOSE" is chosen by the SELF team
                         "opponent":[]
                     },
                     "scoreMultiplier":{
@@ -83,7 +113,7 @@ class Effect{
                          * self and opponent are lists of dictionaries with the entries {"keyword":<keyword>, "multiplier":<float>}
                          * 
                          * POSSIBLE KEYWORDS:
-                         * "CAPTAIN" - forces captain to play
+                         * "CAPTAIN" - gives the captain of the given team a score multiplier
                          * "RANDOM" - chooses a random player
                          * "CHOOSE" - the team may choose a player from your OWN team
                          * "ALL" - any member that plays the map on the team
@@ -291,6 +321,10 @@ class Effect{
                          * "PREVMAP" - the map that was previously picked by the other team. ONLY WORKS WITH CARD ID 20
                          */
                         "keyword": ""
+                    },
+                    "NiaphNipah":{
+                        "active":false
+                        //does the NiaphNipah thingy
                     }
         
         

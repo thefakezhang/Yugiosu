@@ -254,6 +254,37 @@
                         ]
                     }
                 }
+            },
+            {
+                "target":"LOBBY",
+                "turn":0,
+                "timing":"AFTER",
+                "effect":{
+                    "comparator":{
+                        "conditionals": [
+                            {
+                                "target": "OPPONENT",
+                                "keyword": "SCORERATIOCHECK",
+                                "compare": ">",
+                                "negation": false,
+                                "value": 1,
+                                "properties": [
+                                    {
+                                        "target": "OPPONENT",
+                                        "turn": 0,
+                                        "timing": "AFTER",
+                                        "effect": {
+                                            "draw": {
+                                                "self": 0,
+                                                "opponent": 1
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
             }
         ]
     },
@@ -513,6 +544,7 @@
                                 "target":"SELF",
                                 "keyword":"SCORERATIOCHECK",
                                 "compare":">=",
+                                "negation": false,
                                 "value":1.2,
                                 "properties":[
                                     {
@@ -977,7 +1009,61 @@
         "cardtype": "Trap",
         "description": "If the opposing team picks a map without HD, they must add HD. If the opposing team picks a map with HD, your team has the option of playing NM.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "comparator": {
+                        "conditionals": [
+                            {
+                                "target":"EITHER",
+                                "keyword": "PICK",
+                                "compare": "CONTAINS",
+                                "negation": true,
+                                "value": "HD",
+                                "properties": [
+                                    {
+                                        "target": "OPPONENT",
+                                        "turn": 0,
+                                        "timing": "BEFORE",
+                                        "effect": {
+                                            "modToggle": {
+                                                "self": false,
+                                                "opponent": true,
+                                                "mod": ["HD"]
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "target":"EITHER",
+                                "keyword": "PICK",
+                                "compare": "CONTAINS",
+                                "negation": false,
+                                "value": "HD",
+                                "properties": [
+                                    {
+                                        "target": "OPPONENT",
+                                        "turn": 0,
+                                        "timing": "BEFORE",
+                                        "effect": {
+                                            "modToggle": {
+                                                "self": true,
+                                                "opponent": false,
+                                                "mod": ["HD"]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 33,
@@ -985,7 +1071,78 @@
         "cardtype": "Spell",
         "description": "Both teams select one card from their hand. They swap those cards with each other.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "EITHER",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "takeInput": {
+                        "chooser": "OPPONENT",
+                        "type": "HANDINDEX",
+                        "properties": [
+                            {
+                                "target": "SELF",
+                                "turn": 0,
+                                "timing": "BEFORE",
+                                "effect": {
+                                    "addCardInput": {
+                                        "self": true,
+                                        "opponent": false
+                                    }
+                                }
+                            },
+                            {
+                                "target": "OPPONENT",
+                                "turn": 0,
+                                "timing": "BEFORE",
+                                "effect": {
+                                    "removeCardInput": {
+                                        "self": false,
+                                        "opponent": true
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "target": "EITHER",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "takeInput": {
+                        "chooser": "SELF",
+                        "type": "HANDINDEX",
+                        "properties": [
+                            {
+                                "target": "OPPONENT",
+                                "turn": 0,
+                                "timing": "BEFORE",
+                                "effect": {
+                                    "addCardInput": {
+                                        "self": false,
+                                        "opponent": true
+                                    }
+                                }
+                            },
+                            {
+                                "target": "SELF",
+                                "turn": 0,
+                                "timing": "BEFORE",
+                                "effect": {
+                                    "removeCardInput": {
+                                        "self": true,
+                                        "opponent": false
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 34,
@@ -993,7 +1150,11 @@
         "cardtype": "Spell",
         "description": "Both teams discard their entire hand, then draw x cards, where x is the amount of cards they discarded.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+
+            }
+        ]
     },
     {
         "id": 35,
@@ -1073,7 +1234,31 @@
         "cardtype": "Gift Spell",
         "description": "Pick a map(cannot be TB or a map that is banned/already picked), until the opponent or you pick that map, you both discard 1 card from the top of your deck every turn",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target":"SELF",
+                "turn":-1,
+                "timing":"BEFORE",
+                "effect":{
+                    "mill":{
+                        "self": 1,
+                        "opponent": 1
+                    },
+                    "disableCondition":{
+                        "conditionals":[
+                            {
+                                "target":"EITHER",
+                                "keyword":"CARDMAPPICKED",
+                                "negation":false,
+                                "compare":"==",
+                                "value":1,
+                                "properties":[]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 39,
@@ -1081,7 +1266,41 @@
         "cardtype": "Cont. Spell",
         "description": "Select a player from your team. This player must play all maps. Draw 3 cards and discard 1 card from your hand",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "SELF",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "draw": {
+                        "self": 3,
+                        "opponent": 0
+                    },
+                    "discard": {
+                        "self": 1,
+                        "opponent": 0
+                    }
+                }
+            },
+            {
+                "target": "SELF",
+                "turn": -1,
+                "timing": "BEFORE",
+                "effect": {
+                    "takeInput": {
+                        "chooser": "SELF",
+                        "type": "PLAYERSELFTEAM",
+                        "properties": [
+                            {
+                                "forceMemberInput": {
+                                    "count": -1
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 40,
@@ -1089,7 +1308,43 @@
         "cardtype": "Trap",
         "description": "Select a player from the opposing team. If they top score the following pick, their teamscore is multiplied by 0.85",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "OPPONENT",
+                "turn": 0,
+                "timing": "AFTER",
+                "effect": {
+                    "comparator": {
+                        "conditionals": [
+                            {
+                                "target": "OPPONENT",
+                                "keyword": "INDIVSCORECHECK",
+                                "negation": false,
+                                "compare": "TOPSCORE",
+                                "properties": [
+                                    {
+                                        "target": "OPPONENT",
+                                        "turn": 0,
+                                        "timing": "AFTER",
+                                        "effect": {
+                                            "scoreMultiplier": {
+                                                "self": [],
+                                                "opponent": [
+                                                    {
+                                                        "keyword": "ALL",
+                                                        "multiplier": 0.85
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 41,
@@ -1097,7 +1352,11 @@
         "cardtype": "Spell",
         "description": "Discard 0 to x points, where x is the amount of points you currently have. For each point you discard, select 3 cards from your graveyard and put back into your deck. Shuffle the deck, and draw as many cards as you discarded.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+
+            }
+        ]
     },
     {
         "id": 42,
@@ -1105,7 +1364,39 @@
         "cardtype": "Spell",
         "description": "The captains from both teams will play each other 1v1. The opposing team gets a 1.3x score multiplier",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "teamSize": {
+                        "self": 1,
+                        "opponent": 1
+                    }
+                }
+            },
+            {
+                "target": "LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "forceMember": {
+                        "self": ["CAPTAIN"],
+                        "opponent": ["CAPTAIN"]
+                    },
+                    "scoreMultiplier": {
+                        "self": [],
+                        "opponent": [
+                            {
+                                "keyword": "ALL",
+                                "multiplier": 1.3
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 43,
@@ -1113,7 +1404,18 @@
         "cardtype": "Spell",
         "description": "Type \"Niaph\" into the lobby chat. If a memeber of the other team types \"Nipah\" within 20 seconds, both teams map add an extra map pick into the pool (teams decide mods and wincon)",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "NiaphNipah": {
+                        "active": true
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 44,
@@ -1121,7 +1423,18 @@
         "cardtype": "Spell",
         "description": "Upon play, this card will turn into a random card with a random target and its effect will be executed",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "target": "LOBBY",
+                "turn": 0,
+                "timing": "BEFORE",
+                "effect": {
+                    "randomizer": {
+                        "active": true
+                    }
+                }
+            }
+        ]
     },
     {
         "id": 45,
@@ -1129,6 +1442,25 @@
         "cardtype": "Spell",
         "description": "Select one of your opponent's trap cards on the field. You may view the trap card.",
         "copies": 1,
-        "properties": "{}"
+        "properties": [
+            {
+                "takeInput": {
+                    "chooser": "SELF",
+                    "type": "MAP",
+                    "properties": [
+                        {
+                            "target":"SELF",
+                            "turn":0,
+                            "timing":"BEFORE",
+                            "effect": {
+                                "viewTrapInput": {
+                                    "active": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
     }
 ]
