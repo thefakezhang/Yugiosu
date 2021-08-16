@@ -505,13 +505,14 @@ async function init() {
                   channel.sendMessage("!mp timer 90");
 
                 }else{
-                  channel.sendMessage("no one wants warmups D:");
+                  channel.sendMessage("nobody wants warmups D:");
                   channel.sendMessage("moving into the bans phase");
                   channel.sendMessage("!mp timer 90");
                   channel.sendMessage(`team ${game.rollWinner+1}, please say \'ban first\' or \'ban second\' to indicate which ban order you prefer!`);
                   game.changePhase(Game.PHASE.BANS);
                 }
               }
+              break;
             case 'countdown':
               if(msg.user.ircUsername == 'BanchoBot'){
                 if(m[1] === 'finished'){
@@ -565,7 +566,7 @@ async function init() {
                 }
               }
               
-              
+              break;
           }
           break;
         case Game.PHASE.BANS:
@@ -644,8 +645,10 @@ async function init() {
                     game.bans[currentBanTeam].push(map.code);
                     channel.sendMessage(`team ${game.currentBanTeam + 1} has banned ${map.code}!`);
                     game.currentBanTeam = 1 - game.currentBanTeam;
-                    channel.sendMessage(`it is now team ${game.currentBanTeam + 1}'s turn to ban!`);
-                    channel.sendMessage(`!mp timer 120`);
+                    if(!game.bansDone()){
+                      channel.sendMessage(`it is now team ${game.currentBanTeam + 1}'s turn to ban!`);
+                      channel.sendMessage(`!mp timer 120`);
+                    }  
                   }
   
                 }else if(m.length == 1){
@@ -656,6 +659,7 @@ async function init() {
             
           }else{ //bans are done
             channel.sendMessage(`Ban phase is now done! Moving onto the main phase!!`);
+            game.changePhase(Game.PHASE.CARDS);
             channel.sendMessage(`!mp aborttimer`);
           }
           break;
