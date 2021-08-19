@@ -35,7 +35,7 @@ class EffectManager{
                 for(let property of cardProperties){
                     let turn = property["turn"];
                     let timing = property["timing"];
-                    console.log(`${JSON.stringify(property["effect"])}`);
+                    //console.log(`${JSON.stringify(property["effect"])}`);
                     for(let effect in property["effect"]){
                         switch(effect){
                             case "modToggle":
@@ -46,6 +46,14 @@ class EffectManager{
                                         "duration": turn
                                     });
                                 }
+                                break;
+
+                            case "wincon":
+                                let wincon = property["effect"]["wincon"]["wincon"];
+                                this.globalEffects.push({
+                                    "command": "WINCON" + wincon,
+                                    "duration": turn
+                                });
                                 break;
                         }
                         
@@ -84,6 +92,15 @@ class EffectManager{
                                     });
                                 }
                                 break;
+
+                            case "wincon":{
+                                let wincon = property["effect"]["wincon"]["wincon"];
+                                this.localEffects[map][teamPlayed].push({
+                                    "command": "WINCON" + wincon,
+                                    "duration": turn
+                                });
+                                break;
+                            }
                         }
                     }
                     

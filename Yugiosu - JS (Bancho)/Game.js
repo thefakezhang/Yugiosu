@@ -51,7 +51,7 @@ class Game{
             "SD":false
         };
 
-        this.wincon = "V2";
+        this.wincon = "v2";
 
         this.player1 = {
             "name":team1, 
@@ -179,6 +179,10 @@ class Game{
                 case "TOGGLE":
                     this.toggle[args[1]] = !this.toggle[args[1]];
                     break;
+
+                case "WINCON":
+                    this.wincon = args[1];
+                    break;
             }
         }
 
@@ -198,8 +202,14 @@ class Game{
                     case "TOGGLE":
                         this.toggle[args[1]] = !this.toggle[args[1]];
                         break;
+                    
+                    case "WINCON":
+                        this.wincon = args[1];
+                        break;
                 }
             }
+
+            this.effectManager.localEffects[this.mappool.currentPick] = [];
         }
         
     }
@@ -217,7 +227,7 @@ class Game{
             "SD":false
         };
 
-        this.wincon = "V2";
+        this.wincon = "v2";
 
         for(let effect of this.effectManager.globalEffects){
             console.log(JSON.stringify(effect));

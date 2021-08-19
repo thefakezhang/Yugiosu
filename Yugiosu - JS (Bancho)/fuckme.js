@@ -785,6 +785,25 @@ function setBeatmap(input, force=false) {
           mod += ' NF';
         }
 
+        switch(game.wincon){
+          case "v2":
+            lobby.setSettings(bancho.BanchoLobbyTeamModes.TeamVs, bancho.BanchoLobbyWinConditions.ScoreV2);
+            break;
+
+          case "v1":
+            lobby.setSettings(bancho.BanchoLobbyTeamModes.TeamVs, bancho.BanchoLobbyWinConditions.Score);
+            break;
+
+          case "acc":
+            lobby.setSettings(bancho.BanchoLobbyTeamModes.TeamVs, bancho.BanchoLobbyWinConditions.Accuracy);
+            break;
+
+          case "combo":
+            lobby.setSettings(bancho.BanchoLobbyTeamModes.TeamVs, bancho.BanchoLobbyWinConditions.Combo);
+            break;
+
+        }
+
         
     
         channel.sendMessage("Selecting " + map.code);
