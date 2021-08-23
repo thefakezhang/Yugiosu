@@ -179,6 +179,24 @@ async function init() {
     lobby.on("allPlayersReady", (obj) => {
       lobby.startMatch(10);
     });
+
+    lobby.on("beatmap", (beatmap) => {
+      switch(game.phase){
+        case Game.PHASE.WARMUP: //warmup map can't be longer than 5 minutes
+          if(beatmap != null){
+            if(beatmap.hitLength > 300){
+              //console.log(Object.getOwnPropertyDescriptor(beatmap));
+              channel.sendMessage(`${beatmap.title} is too long! Please choose a map that is under 5 minutes drain time!`);
+              lobby.setMap(43117); //wenches and mead!
+            }else if(beatmap.countNormal + beatmap.countSlider + beatmap.countSpinner <= 0){
+              channel.sendMessage(`${beatmap.title} does't have any objects! Please choose a map with at least one object!`);
+              lobby.setMap(43117); //wenches and mead!
+            }
+            
+          }
+          break;
+      }
+    })
   
     lobby.on("matchFinished", (scores) => {
 
@@ -254,7 +272,7 @@ async function init() {
       if(attemptedHost != null && attemptedHost === id){
         attemptedHost = null; //stub
       }
-    })
+    });
 
     
   
@@ -368,6 +386,7 @@ async function init() {
                   if(game.rollWinner == -1){ //if rolls are equal, will have to repeat
                     channel.sendMessage(`blimey! It looks like both teams rolled the same number! Roll again...`);
                     game.resetRollInfo();
+                    channel.sendMessage('!mp timer 45')
                     break;
                   }else{
                     channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
@@ -392,6 +411,7 @@ async function init() {
                   if(game.rollWinner == -1){ //if rolls are equal, will have to repeat
                     channel.sendMessage(`blimey! It looks like both teams rolled the same number! Roll again...`);
                     game.resetRollInfo();
+                    channel.sendMessage("!mp timer 45");
                     break;
                   }else{
                     channel.sendMessage(`team 1 rolled ${game.team1Roll} and team 2 rolled ${game.team2Roll}! Team ${game.rollWinner+1} wins the roll!`);
